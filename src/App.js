@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Welcome from "./pages/welcome"
+import AdminUsers from "./pages/adminUsers"
+import AdminSystems from "./pages/adminSystems"
+import AdminQuestions from "./pages/adminQuestions"
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faStroopwafel)
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Fragment>
+        <Route path="/" exact component={ Welcome } />
+        <Route path="/admin_users" exact component={ AdminUsers } />
+        <Route path="/admin_systems" exact component={ AdminSystems } />
+        <Route path="/admin_questions" exact component={ AdminQuestions } />
+      </Fragment>
+    </Router>
   );
 }
 
