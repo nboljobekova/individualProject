@@ -10,8 +10,8 @@ class Welcome extends Component {
         this.state = {
             logModal: false,
             regModal: false,
-            firstname: '',
-            lastname: '',
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
         };
@@ -20,14 +20,15 @@ class Welcome extends Component {
         this.openRegModal = this.openRegModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+        this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
       }
     
         openLogModal(e) {
             e.preventDefault();
             this.setState({
                 logModal: true,
-                regModal: false,
+                // regModal: false,
                 email: '',
                 password: '',
         })};
@@ -35,10 +36,10 @@ class Welcome extends Component {
         openRegModal(e) {
             e.preventDefault();
             this.setState({
-                logModal: false,
+                // logModal: false,
                 regModal: true,
-                firstname: '',
-                lastname: '',
+                firstName: '',
+                lastName: '',
                 email: '',
                 password: '',
         })};
@@ -54,20 +55,39 @@ class Welcome extends Component {
                 [e.target.name]: e.target.value 
         })};
 
-        handleSubmit(e) {
+        handleLoginSubmit(e) {
             e.preventDefault();
             const innerState = {...this.state};
-            delete innerState.logModal;
-            delete innerState.regModal;
-            const formData = new FormData();
-            Object.keys(innerState).forEach(key => {
-                if (innerState[key]) formData.append(key, innerState[key]);
-            });
+            const dataToSend = JSON.stringify({              
+                "email": innerState.email, 
+                "password": innerState.password
+            })
+            console.log(dataToSend);
+            // const innerState = {...this.state};
+            // delete innerState.logModal;
+            // delete innerState.regModal;
+
+            // const formData = new FormData();
+            // Object.keys(innerState).forEach(key => {
+            //     if (innerState[key]) formData.append(key, innerState[key]);
+            // });
             // fetch('/api/form-submit-url', {
             //     method: 'POST',
             //     body: formData,
             // });
-            console.log(this.state);
+            // console.log(this.state);
+        }
+
+        handleRegistrationSubmit(e) {
+            e.preventDefault();
+            const innerState = {...this.state};
+            const dataToSend = JSON.stringify({              
+                "firstName": innerState.firstName, 
+                "lastName": innerState.lastName,
+                "email": innerState.email, 
+                "password": innerState.password
+            })
+            console.log(dataToSend);
         }
               
 
@@ -76,23 +96,23 @@ class Welcome extends Component {
         return (
             <Container className="pt-3">
                 <Row className="d-flex justify-content-end">
-                    <Button color="success" className="mr-2" onClick={this.openLogModal}>Login</Button>
-                    <Button color="success" onClick={this.openRegModal}>Register</Button>
+                    <Button color="success" className="mr-2" onClick={this.openLogModal}>Вход</Button>
+                    <Button color="success" onClick={this.openRegModal}>Регистрация</Button>
                 </Row>
                 <Row className="welcome_main-block mt-5 mx-auto">
-                    <h1 className="mt-5">Welcome!</h1>
-                    <h2 className="mt-5 mb-5">Please choose survey</h2>
-                    <Button outline color="success mb-3" block>Medical survey</Button>
-                    <Button outline color="warning" block>Psychological survey</Button>
+                    <h1 className="mt-5">Добро вожаловать!</h1>
+                    <h2 className="mt-5 mb-5">Пожалуйста, выберите тип опроса</h2>
+                    <Button outline color="success mb-3" block>Медицинский опрос</Button>
+                    <Button outline color="warning" block>Психологический опрос</Button>
                 </Row>
                 <Modal
                     isOpen={this.state.logModal}
                 >
-                    <ModalHeader>Login</ModalHeader>
-                    <Form onSubmit={this.handleSubmit}>
+                    <ModalHeader>Вход</ModalHeader>
+                    <Form onSubmit={this.handleLoginSubmit}>
                         <ModalBody>
                             <FormGroup>
-                                <Label>Email address</Label>
+                                <Label>Email</Label>
                                 <Input
                                     type="email"
                                     name="email"
@@ -102,52 +122,52 @@ class Welcome extends Component {
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label>Password</Label>
+                                <Label>Пароль</Label>
                                 <Input
                                     type="password"
                                     name="password"
                                     value={this.state.password}
                                     onChange={this.handleChange}
-                                    placeholder="Password"
+                                    placeholder="Пароль"
                                 />
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" type="submit">Login</Button>{' '}
-                            <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                            <Button color="primary" type="submit">Вход</Button>{' '}
+                            <Button color="secondary" onClick={this.closeModal}>Отмена</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
                 <Modal 
                         isOpen={this.state.regModal}
                 >
-                    <ModalHeader>Register</ModalHeader>
-                        <Form onSubmit={this.handleSubmit}>
+                    <ModalHeader>Регистрация</ModalHeader>
+                        <Form onSubmit={this.handleRegistrationSubmit}>
                         <ModalBody>
                             <FormGroup>
-                                <Label>First name</Label>
+                                <Label>Имя</Label>
                                 <Input
                                     type="text"
-                                    name="firstname"
-                                    placeholder="First Name"
-                                    value={this.state.firstname}
+                                    name="firstName"
+                                    placeholder="Имя"
+                                    value={this.state.firstName}
                                     onChange={this.handleChange}
                                     required
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label>Last name</Label>
+                                <Label>Фамилия</Label>
                                 <Input
                                     type="text"
-                                    name="lastname"
-                                    placeholder="Last Name"
-                                    value={this.state.lastname}
+                                    name="lastName"
+                                    placeholder="Фамилия"
+                                    value={this.state.lastName}
                                     onChange={this.handleChange}
                                     required
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label>Email address</Label>
+                                <Label>Email</Label>
                                 <Input
                                     type="email"
                                     name="email"
@@ -158,11 +178,11 @@ class Welcome extends Component {
                                 />
                             </FormGroup>
                             <FormGroup>
-                                <Label>Password</Label>
+                                <Label>Пароль</Label>
                                 <Input
                                     type="password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="Пароль"
                                     value={this.state.password}
                                     onChange={this.handleChange}
                                     required
@@ -170,8 +190,8 @@ class Welcome extends Component {
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" type="submit">Register</Button>{' '}
-                            <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                            <Button color="primary" type="submit">Регистрация</Button>{' '}
+                            <Button color="secondary" onClick={this.closeModal}>Отмена</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
