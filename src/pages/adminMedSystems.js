@@ -69,7 +69,7 @@ class EditableCell extends Component {
     }
   }
 
-class AdminSystems extends Component {
+class AdminMedSystems extends Component {
     constructor(props) {
         super(props);
         this.columns = [
@@ -113,11 +113,7 @@ class AdminSystems extends Component {
                     </a>
                 )
                 );
-                this.state.dataSource.length >= 1 ? (
-                    <Popconfirm title="Удалить?" onConfirm={() => this.handleDelete(record.key)}>
-                        <a href="javascript:;"></a><FontAwesomeIcon icon={ faTrash } color="red" size='lg' />
-                    </Popconfirm>
-                ) : null,
+
             }
         },
         ];
@@ -197,9 +193,9 @@ class AdminSystems extends Component {
         };
         });
         return (
-            <Container className="pt-3">
+            <Container>
                 <Header />
-                <Row className="d-flex flex-column">
+                <Row className="d-flex flex-column p-3">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список систем</h2>
                     <div >
                         <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
@@ -219,4 +215,4 @@ class AdminSystems extends Component {
     }
 }
 
-export default AdminSystems;
+export default AdminMedSystems;

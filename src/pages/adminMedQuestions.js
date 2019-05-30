@@ -3,15 +3,18 @@ import { Container, Row, Table } from 'reactstrap';
 import Header from "../components/Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Select } from 'antd';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+// import { Select } from 'antd';
 import 'antd/dist/antd.css';
-import './admin.css'
+// import './admin.css'
 
 const data = [
-    'Система переваривания и усвоения пищи', 'Желудочно-кишечный тракт', 'Сердечно-сосудистая система', 'Нервная система',
-    'Иммунная система', 'Дыхательная система', 'Мочевыводящая система', 'Эндокринная система',  
-    'Опорно-двигательная система', 'Кожа'     
+    {value:'Система переваривания и усвоения пищи', label:'Система переваривания и усвоения пищи'}, {value:'Желудочно-кишечный тракт', label:'Желудочно-кишечный тракт'}, {value:'Сердечно-сосудистая система', label:'Сердечно-сосудистая система'}, {value:'Нервная система', label:'Нервная система'},
+    {value:'Иммунная система', label:'Иммунная система'}, {value:'Дыхательная система', label:'Дыхательная система'}, {value:'Мочевыводящая система', label:'Мочевыводящая система'}, {value:'Эндокринная система', label:'Эндокринная система'},  
+    {value:'Опорно-двигательная система', label:'Опорно-двигательная система'}, {value:'Кожа', label:'Кожа'}     
 ];
+const animatedComponents = makeAnimated();
 
 
 class AdminMedQuestions extends Component {
@@ -20,16 +23,16 @@ class AdminMedQuestions extends Component {
     };
     
     handleChange = selectedItems => {
-        this.setState({ selectedItems });
+        this.setState({ data });
     };
 
     render(){
-        const { selectedItems } = this.state;
-        const filteredOptions = data.filter(o => !selectedItems.includes(o));
+        // const { selectedItems } = this.state;
+        // const filteredOptions = data.filter(o => !selectedItems.includes(o));
         return (
-            <Container className="pt-3">
+            <Container>
                 <Header />
-                <Row className="d-flex justify-content-end">
+                <Row className="d-flex justify-content-end p-3">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список медицинских вопросов</h2>
                 <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
                     <Table bordered>
@@ -47,11 +50,17 @@ class AdminMedQuestions extends Component {
                             <td>...</td>
                             <td>
                                 <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    options={data}
+                                />
+                                {/* <Select
                                     mode="multiple"
                                     placeholder="Выберите систему"
                                     value={selectedItems}
                                     onChange={this.handleChange}
-                                    className="multipe-select"
+                                    // className="multipe-select"
                                     style={{ width: '100%', outline: 'none'}}
                                 >
                                     {filteredOptions.map(item => (
@@ -59,7 +68,7 @@ class AdminMedQuestions extends Component {
                                         {item}
                                     </Select.Option>
                                     ))}
-                                </Select>
+                                </Select> */}
                             </td>
                             <td style={{textAlign: "center"}}><FontAwesomeIcon icon={ faEdit } color="orange" size='lg' className="mr-3"/> <FontAwesomeIcon icon={ faTrash } color="red" size='lg' /></td>
                         </tr>

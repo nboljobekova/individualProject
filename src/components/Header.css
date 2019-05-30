@@ -1,0 +1,42 @@
+.nav {
+    /* padding: 0; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #697882;
+    text-align: center;
+}
+
+.navitem {
+    display: block;
+    padding: 0.5em 2em;
+    width: 21%;
+}
+
+.navitem:hover {
+    background-color: lightgray;
+    text-decoration: none;
+    color: #697882;
+}
+
+.active {
+    font-weight: 600;
+    color:  #ac7a58;
+}
+
+.navlink {
+    text-align: center;
+    color: lightgray;
+    font-size: 1em;
+}
+
+.navlink:hover {
+    text-decoration: none;
+    color: #697882;
+}
+
+.bordered {
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+}
+

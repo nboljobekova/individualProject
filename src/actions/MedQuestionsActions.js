@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios";
 
 export const MED_QUESTIONS_START = "MED_QUESTIONS_START";
 export const MED_QUESTIONS_SUCCESS = "MED_QUESTIONS_SUCCESS";
@@ -7,7 +7,7 @@ export const MED_QUESTIONS_FAIL = "MED_QUESTIONS_FAIL";
 export const getMedQuestions = () => {
   return (dispatch) => {
     dispatch(medQuestionsStart());
-    axios.get("/xxx")
+    axios.get("/questions")
       .then(response => {
         dispatch(medQuestionsSuccess(
           response.data

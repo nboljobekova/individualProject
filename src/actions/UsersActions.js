@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios";
 
 export const USERS_START = "USERS_START";
 export const USERS_SUCCESS = "USERS_SUCCESS";
@@ -7,7 +7,7 @@ export const USERS_FAIL = "USERS_FAIL";
 export const getUsers = () => {
   return (dispatch) => {
     dispatch(usersStart());
-    axios.get("/xxx")
+    axios.get("/users")
       .then(response => {
         dispatch(usersSuccess(
           response.data

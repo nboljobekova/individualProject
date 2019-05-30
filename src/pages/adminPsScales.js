@@ -8,9 +8,9 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 class AdminPsScales extends Component {
     render(){
         return (
-            <Container className="pt-3">
+            <Container>
                 <Header />
-                <Row className="d-flex justify-content-end">
+                <Row className="d-flex justify-content-end p-3">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список психологических шкал</h2>
                 <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
                     <Table bordered>

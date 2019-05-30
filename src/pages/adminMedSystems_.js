@@ -8,7 +8,7 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 class AdminMedSystems extends Component {
     render(){
         return (
-            <Container className="pt-3">
+            <Container>
                 <Header />
                 <Row className="d-flex justify-content-end">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список медицинских систем</h2>

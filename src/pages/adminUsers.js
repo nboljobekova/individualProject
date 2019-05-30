@@ -8,9 +8,9 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 class AdminUsers extends Component {
     render(){
         return (
-            <Container className="pt-3">
+            <Container>
                 <Header />
-                <Row>
+                <Row className="p-3">
                     <h2 className="d-flex justify-content-center my-4 mx-auto">Список пользователей</h2>
                     <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
                     <Table bordered>

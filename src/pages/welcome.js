@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import { Container, Row, Button } from 'reactstrap';
 import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import "./welcome.css"
-// import ModalLogin from "./modalLogin";
 
 class Welcome extends Component {
     constructor(props) {
@@ -28,7 +27,7 @@ class Welcome extends Component {
             e.preventDefault();
             this.setState({
                 logModal: true,
-                // regModal: false,
+                regModal: false,
                 email: '',
                 password: '',
         })};
@@ -36,7 +35,7 @@ class Welcome extends Component {
         openRegModal(e) {
             e.preventDefault();
             this.setState({
-                // logModal: false,
+                logModal: false,
                 regModal: true,
                 firstName: '',
                 lastName: '',
@@ -57,11 +56,10 @@ class Welcome extends Component {
 
         handleLoginSubmit(e) {
             e.preventDefault();
-            const innerState = {...this.state};
-            const dataToSend = JSON.stringify({              
-                "email": innerState.email, 
-                "password": innerState.password
-            })
+            const dataToSend = {              
+                "email": this.state.email, 
+                "password": this.state.password
+            }
             console.log(dataToSend);
             // const innerState = {...this.state};
             // delete innerState.logModal;
@@ -80,13 +78,12 @@ class Welcome extends Component {
 
         handleRegistrationSubmit(e) {
             e.preventDefault();
-            const innerState = {...this.state};
-            const dataToSend = JSON.stringify({              
-                "firstName": innerState.firstName, 
-                "lastName": innerState.lastName,
-                "email": innerState.email, 
-                "password": innerState.password
-            })
+            const dataToSend = {              
+                "firstName": this.state.firstName, 
+                "lastName": this.state.lastName,
+                "email": this.state.email, 
+                "password": this.state.password
+            }
             console.log(dataToSend);
         }
               
@@ -94,13 +91,13 @@ class Welcome extends Component {
 
     render(){
         return (
-            <Container className="pt-3">
+            <Container>
                 <Row className="d-flex justify-content-end">
                     <Button color="success" className="mr-2" onClick={this.openLogModal}>Вход</Button>
                     <Button color="success" onClick={this.openRegModal}>Регистрация</Button>
                 </Row>
                 <Row className="welcome_main-block mt-5 mx-auto">
-                    <h1 className="mt-5">Добро вожаловать!</h1>
+                    <h1 className="mt-5">Добро пожаловать!</h1>
                     <h2 className="mt-5 mb-5">Пожалуйста, выберите тип опроса</h2>
                     <Button outline color="success mb-3" block>Медицинский опрос</Button>
                     <Button outline color="warning" block>Психологический опрос</Button>

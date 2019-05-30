@@ -8,7 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@trendmicro/react-modal": "^3.0.0",
-    "antd": "^3.19.0",
+    "antd": "^3.19.1",
     "bootstrap": "^4.3.1",
     "eslint": "^5.16.0",
     "prop-types": "^15.7.2",
@@ -19,6 +19,7 @@
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "react-select": "^3.0.3",
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
@@ -28,7 +29,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "fakeDB":"json-server --watch db.json"
   },
   "eslintConfig": {
     "extends": "react-app"
