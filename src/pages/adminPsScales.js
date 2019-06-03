@@ -8,7 +8,7 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 class AdminPsScales extends Component {
     render(){
         return (
-            <Container>
+            <Container className="mt-3">
                 <Header />
                 <Row className="d-flex justify-content-end p-3">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список психологических шкал</h2>

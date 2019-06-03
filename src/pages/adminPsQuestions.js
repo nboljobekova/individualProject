@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Select } from 'antd';
 import 'antd/dist/antd.css';
-import './admin.css'
 
 const data = [
     'Страх смерти', 'Гордыня', 'Личная выгода', 'Перекладывание ответственности на других',
@@ -27,7 +26,7 @@ class AdminPsQuestions extends Component {
         const { selectedItems } = this.state;
         const filteredOptions = data.filter(o => !selectedItems.includes(o));
         return (
-            <Container>
+            <Container className="mt-3">
                 <Header />
                 <Row className="d-flex justify-content-end p-3">
                 <h2 className="d-flex justify-content-center my-4 mx-auto">Список психологических вопросов</h2>

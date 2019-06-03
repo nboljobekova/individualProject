@@ -1,25 +1,25 @@
 import {
-    MED_QUESTIONS_START, MED_QUESTIONS_SUCCESS, MED_QUESTIONS_FAIL
+    GET_MEDQUESTIONS_START, GET_MEDQUESTIONS_SUCCESS, GET_MEDQUESTIONS_FAIL
   } from "../actions/MedQuestionsActions"
   
-  const MedQuestionsReducer = (state = {
+  export const MedQuestionsReducer = (state = {
+    medQuestions: [],
     status: null,
     error: null,
-    objects: []
   }, action) => {
     switch(action.type){
-      case MED_QUESTIONS_START:
+      case GET_MEDQUESTIONS_START:
         return {
           ...state,
           status: "loading"
         }
-      case MED_QUESTIONS_SUCCESS:
+      case GET_MEDQUESTIONS_SUCCESS:
         return {
           ...state,
           status: "success",
-          objects: action.payload
+          medQuestions: action.payload
         }
-      case MED_QUESTIONS_FAIL:
+      case GET_MEDQUESTIONS_FAIL:
         return {
           ...state,
           status: "error",
@@ -30,4 +30,4 @@ import {
     }
   }
   
-  export default MedQuestionsReducer;
+  // export default MedQuestionsReducer;

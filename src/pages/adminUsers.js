@@ -8,7 +8,7 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 class AdminUsers extends Component {
     render(){
         return (
-            <Container>
+            <Container className="mt-3">
                 <Header />
                 <Row className="p-3">
                     <h2 className="d-flex justify-content-center my-4 mx-auto">Список пользователей</h2>

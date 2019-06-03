@@ -2,7 +2,7 @@ import {
     PS_SYSTEMS_START, PS_SYSTEMS_SUCCESS, PS_SYSTEMS_FAIL
   } from "../actions/PsSystemsActions"
   
-  const PsSystemsReducer = (state = {
+  export const PsSystemsReducer = (state = {
     status: null,
     error: null,
     objects: []
@@ -30,4 +30,4 @@ import {
     }
   }
   
-  export default PsSystemsReducer;
+  // export default PsSystemsReducer;

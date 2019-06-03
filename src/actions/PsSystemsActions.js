@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios";
 
 export const PS_SYSTEMS_START = "PS_SYSTEMS_START";
 export const PS_SYSTEMS_SUCCESS = "PS_SYSTEMS_SUCCESS";

@@ -1,25 +1,25 @@
 import {
-    PS_QUESTIONS_START, PS_QUESTIONS_SUCCESS, PS_QUESTIONS_FAIL
+  GET_PSQUESTIONS_START, GET_PSQUESTIONS_SUCCESS, GET_PSQUESTIONS_FAIL
   } from "../actions/PsQuestionsActions"
   
-  const PsQuestionsReducer = (state = {
+  export const PsQuestionsReducer = (state = {
     status: null,
     error: null,
     objects: []
   }, action) => {
     switch(action.type){
-      case PS_QUESTIONS_START:
+      case GET_PSQUESTIONS_START:
         return {
           ...state,
           status: "loading"
         }
-      case PS_QUESTIONS_SUCCESS:
+      case GET_PSQUESTIONS_SUCCESS:
         return {
           ...state,
           status: "success",
           objects: action.payload
         }
-      case PS_QUESTIONS_FAIL:
+      case GET_PSQUESTIONS_FAIL:
         return {
           ...state,
           status: "error",
@@ -30,4 +30,4 @@ import {
     }
   }
   
-  export default PsQuestionsReducer;
+  // export default PsQuestionsReducer;

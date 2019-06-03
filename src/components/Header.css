@@ -7,13 +7,16 @@
     text-align: center;
 }
 
-.navitem {
+.navlink {
     display: block;
     padding: 0.5em 2em;
     width: 21%;
+    text-align: center;
+    color: lightgray;
+    font-size: 1em;
 }
 
-.navitem:hover {
+.navlink:hover {
     background-color: lightgray;
     text-decoration: none;
     color: #697882;
@@ -21,16 +24,7 @@
 
 .active {
     font-weight: 600;
-    color:  #ac7a58;
-}
-
-.navlink {
-    text-align: center;
-    color: lightgray;
-    font-size: 1em;
-}
-
-.navlink:hover {
+    background-color: lightgray;
     text-decoration: none;
     color: #697882;
 }

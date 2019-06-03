@@ -1,25 +1,25 @@
 import {
-    USERS_START, USERS_SUCCESS, USERS_FAIL
+  GET_USERS_START, GET_USERS_SUCCESS, GET_USERS_FAIL
   } from "../actions/UsersActions"
   
-  const UsersReducer = (state = {
+  export const UsersReducer = (state = {
     status: null,
     error: null,
     objects: []
   }, action) => {
     switch(action.type){
-      case USERS_START:
+      case GET_USERS_START:
         return {
           ...state,
           status: "loading"
         }
-      case USERS_SUCCESS:
+      case GET_USERS_SUCCESS:
         return {
           ...state,
           status: "success",
           objects: action.payload
         }
-      case USERS_FAIL:
+      case GET_USERS_FAIL:
         return {
           ...state,
           status: "error",
@@ -30,4 +30,4 @@ import {
     }
   }
   
-  export default UsersReducer;
+  // export default UsersReducer;

@@ -91,7 +91,7 @@ class Welcome extends Component {
 
     render(){
         return (
-            <Container>
+            <Container className="mt-3">
                 <Row className="d-flex justify-content-end">
                     <Button color="success" className="mr-2" onClick={this.openLogModal}>Вход</Button>
                     <Button color="success" onClick={this.openRegModal}>Регистрация</Button>
