@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Container, Row } from 'reactstrap';
 import Header from "../components/Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,49 +10,68 @@ import { connect } from "react-redux"
 import { getMedSystems, addMedSystem, saveMedSystem, deleteMedSystem } from "../actions/MedSystemsActions"
 
 
-const columns = [
-  {
-    title: 'Id',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: 'Name of the system',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: () => <div> <FontAwesomeIcon icon={ faEdit } color="orange" size='lg' className="mr-5"/> <FontAwesomeIcon icon={ faTrash } color="red" size='lg' /> </div>
-  },
-];
-
 class AdminMedSystems extends Component {
+  constructor() {
+    super();
 
-  componentDidMount(){
+    this.state = {
+      currentId: null,
+      editing: false,
+      newMedSystem: {
+        name: "",
+      },
+      tableConfig: {
+        bordered: true,
+        loading: true,
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.props.onGetMedSystems()
+    console.log(this.props.medSystems)
+  }
+
+  handleUpdateMedSystem = async (e) => {
+    console.log(e)
+    await this.setState({ currentId: e.id, editing: true, newMedSystem:{name:e.name} })
+    this.props.onSaveMedSystems(e.name)
     this.props.onGetMedSystems()
   }
 
-  // handleSaveMedSystems(e){
-  //   console.log(e)
-  //   this.setState({ id: e.id, medSystems:{name:e.name} })
-  // }
+  handleSaveMedSystems(e){
+    console.log(e)
+    this.setState({ id: e.id, medSystems:{name:e.name} })
+  }
 
-  // handleDeleteMedSystem(e){
-  //   console.log(this.props)
-  //   this.props.dispatch(deleteMedSystem(e.id))
-  // }
-
+  handleDeleteMedSystems = async (e) => {
+    console.log(this.props)
+    await this.props.onDeleteMedSystems(e.id)
+    this.props.onGetMedSystems()
+  }
 
   render() {
-    // let medSystems;
-    try {
-      console.log(this.props.medSystems)
-    } catch {
-
-    }
-
+    const columns = [
+      {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+      },
+      {
+        title: 'Name of the system',
+        dataIndex: 'name',
+        key: 'name',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, id) => 
+        <Fragment> 
+          <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-5" onClick={()=>this.handleUpdateMedSystem(text)}/> 
+          <FontAwesomeIcon icon={ faTrash } style={{ cursor: "pointer" }} color="red" size='lg' onClick={()=>this.handleDeleteMedSystems(id)}/> 
+        </Fragment>
+      },
+    ]
     return (
       <Container className="mt-3">
         <Header />
@@ -60,7 +79,7 @@ class AdminMedSystems extends Component {
         <h2 className="d-flex justify-content-center my-4 mx-auto">Список медицинских систем</h2>
           <div>
           <div className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></div>
-          <Table dataSource={this.props.medSystems} columns={columns} />;
+          <Table dataSource={this.props.medSystems} columns={columns} />
           </div>
         </Row>
       </Container>
@@ -75,6 +94,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onGetMedSystems: () => dispatch(getMedSystems()),
+  onAddMedSystems: () => dispatch(addMedSystem()),
+  onSaveMedSystems: (text) => dispatch(saveMedSystem(text)),
+  onDeleteMedSystems: (id) => dispatch(deleteMedSystem(id)),
 })
 
 

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-// import { Container, Row, Button } from 'reactstrap';
 import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import "./welcome.css"
+
+import { connect } from "react-redux"
+import { addUsers } from "../actions/UsersActions"
 
 class Welcome extends Component {
     constructor(props) {
@@ -13,6 +15,8 @@ class Welcome extends Component {
             lastName: '',
             email: '',
             password: '',
+            date: '',
+            role: ''
         };
     
         this.openLogModal = this.openLogModal.bind(this);
@@ -61,6 +65,11 @@ class Welcome extends Component {
                 "password": this.state.password
             }
             console.log(dataToSend);
+            this.props.onAddUsers(dataToSend).then(success=> {
+                if(success){
+                    this.closeModal()
+                }
+            })
             // const innerState = {...this.state};
             // delete innerState.logModal;
             // delete innerState.regModal;
@@ -82,9 +91,15 @@ class Welcome extends Component {
                 "firstName": this.state.firstName, 
                 "lastName": this.state.lastName,
                 "email": this.state.email, 
-                "password": this.state.password
+                "password": this.state.password,
+                "date": new Date(),
+                "role": "User",
             }
-            console.log(dataToSend);
+            this.props.onAddUsers(dataToSend).then(success=> {
+                if(success){
+                    this.closeModal()
+                }
+            })
         }
               
 
@@ -197,4 +212,10 @@ class Welcome extends Component {
     }
 }
 
-export default Welcome;
+
+const mapDispatchToProps = dispatch => ({
+    onAddUsers: (obj) => dispatch(addUsers(obj)),
+})
+  
+  
+export default connect(null, mapDispatchToProps)(Welcome)  

@@ -8,14 +8,41 @@ import { Table } from 'antd';
 import 'antd/dist/antd.css';
 
 import { connect } from "react-redux"
-import { getMedSystems, addMedSystem, saveMedSystem, deleteMedSystem } from "../actions/MedSystemsActions"
+// import { getMedSystems, addMedSystem, saveMedSystem, deleteMedSystem } from "../actions/MedSystemsActions"
 import { getMedQuestions, addMedQuestions, saveMedQuestions, deleteMedQuestions } from "../actions/MedQuestionsActions"
 
 
 class AdminMedQuestions extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+      currentId: null,
+      editing: false,
+      newMedQuestion: {
+        name: "",
+        relatedSystems: "",
+      },
+      tableConfig: {
+        bordered: true,
+        loading: true,
+      }
+    };
+  }
+
   componentDidMount(){
       this.props.onGetMedQuestions()
-      this.props.onGetMedSystems()
+      // this.props.onGetMedSystems()
+  }
+
+  changeMedQuestion(e) {
+    this.setState({newMedQuestion:{name:e.target.value, relatedSystems: this.state.newMedQuestion.age}})
+  }
+
+  saveMedQuestions(){
+    this.props.dispatch(saveMedQuestions({id: this.state.currentId, name: this.state.newMedQuestion}))
+    this.setState({ editing: false, newMedQuestion: { name: "" } })
   }
 
   handleSaveMedSystems(e){
@@ -23,9 +50,10 @@ class AdminMedQuestions extends Component {
     this.setState( this.props.medQuestions, { id: e.id, name:e.name })
   }
 
-  handleDeleteMedQuestions(e){
+  handleDeleteMedQuestions = async (e) => {
     console.log(this.props)
-    this.props.onDeleteMedQuestions(e.id)
+    await this.props.onDeleteMedQuestions(e.id)
+    this.props.onGetMedQuestions()
   }
 
   render(){
@@ -48,10 +76,10 @@ class AdminMedQuestions extends Component {
       {
         title: 'Действия',
         key: 'action',
-        render: (text, record) => 
+        render: (text, id) => 
         <Fragment>
-          <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-5" onClick={()=>this.handleSaveMedSystems()} />
-          <FontAwesomeIcon icon={ faTrash } style={{ cursor: "pointer" }} color="red" size='lg' onClick={()=>this.handleDeleteMedQuestions(record)} />
+          <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-5" onClick={()=>this.handleSaveMedQuestions()} />
+          <FontAwesomeIcon icon={ faTrash } style={{ cursor: "pointer" }} color="red" size='lg' onClick={()=>this.handleDeleteMedQuestions(id)} />
         </Fragment>
       }
     ];
@@ -76,11 +104,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onGetMedSystems: () => dispatch(getMedSystems()),
+    // onGetMedSystems: () => dispatch(getMedSystems()),
     onGetMedQuestions: () => dispatch(getMedQuestions()),
     onAddMedQuestions: () => dispatch(addMedQuestions()),
     onSaveMedQuestions: () => dispatch(saveMedQuestions()),
-    onDeleteMedQuestions: () => dispatch(deleteMedQuestions()),
+    onDeleteMedQuestions: (id) => dispatch(deleteMedQuestions(id)),
 })
   
   

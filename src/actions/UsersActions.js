@@ -16,10 +16,10 @@ export const getUsers = () => {
   console.log("hsd")
   return (dispatch) => {
     dispatch (getUsersStart)
-    axios.get("http://localhost:3000/users")
+    return axios.get("http://localhost:3000/users")
       .then((response) => {
         console.log(response)
-        dispatch({ type: GET_USERS_SUCCESS, users: response.data })
+        dispatch({ type: GET_USERS_SUCCESS, payload: response.data })
       })
       .catch((error) => {
         console.log(error)
@@ -30,13 +30,15 @@ export const getUsers = () => {
 
 export const addUsers = (payload) => {
   return (dispatch) => {
-    axios.post("/users", payload)
+    return axios.post("http://localhost:3000/users/", payload)
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_USERS_SUCCESS, payload: payload})//the new item is returned with an ID
+        return true
       })
       .catch((error) => {
         dispatch({type: ADD_USERS_FAIL, payload: error})
+        return false
       })
   }
 }
@@ -44,11 +46,11 @@ export const addUsers = (payload) => {
 export const saveUsers = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.put("/users"+payload.id, payload.data)
+    return axios.put("http://localhost:3000/users/" + payload.id, payload.data)
       .then(() => {
         dispatch({type: SAVE_USERS_SUCCESS })
 
-        axios.get("/users")
+        return axios.get("http://localhost:3000/users")
           .then((response) => {
             dispatch({type: GET_USERS_SUCCESS, payload: response.data})
           })
@@ -65,7 +67,7 @@ export const saveUsers = (payload) => {
 export const deleteUsers = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.delete("/users"+payload)
+    return axios.delete("http://localhost:3000/users/" + payload)
       .then((response) => {
         console.log(response)
 

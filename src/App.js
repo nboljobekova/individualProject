@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import Welcome from "./pages/welcome"
-import { AdminMedSystems, AdminMedQuestions, AdminPsQuestions } from "./pages"
+import { AdminUsers, AdminMedSystems, AdminMedQuestions, AdminPsQuestions } from "./pages"
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Fragment>
           <Route path="/" exact component={ Welcome } />
-          {/* <Route path="/admin_users" component={ AdminUsers } /> */}
+          <Route path="/admin_users" component={ AdminUsers } />
           <Route path="/med_systems" component={ AdminMedSystems } />
           <Route path="/med_questions" component={ AdminMedQuestions } />
           {/* <Route path="/ps_scales" component={ AdminPsScales } /> */}

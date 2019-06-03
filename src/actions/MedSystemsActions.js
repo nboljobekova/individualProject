@@ -29,7 +29,7 @@ export const getMedSystems = () => {
 
 export const addMedSystem = (payload) => {
   return (dispatch) => {
-    axios.post("http://localhost:3000/medSystems", payload)
+    return axios.post("http://localhost:3000/medSystems", payload)
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_MEDSYSTEM_SUCCESS, payload: payload})//the new item is returned with an ID
@@ -43,7 +43,7 @@ export const addMedSystem = (payload) => {
 export const saveMedSystem = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.put("http://localhost:3000/medSystems"+payload.id, payload.data)
+    return axios.put("http://localhost:3000/medSystems"+payload.id, payload.data)
       .then(() => {
         dispatch({type: SAVE_MEDSYSTEM_SUCCESS })
 
@@ -64,7 +64,7 @@ export const saveMedSystem = (payload) => {
 export const deleteMedSystem = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.delete("http://localhost:3000/medSystems"+payload)
+    return axios.delete("http://localhost:3000/medSystems/" + payload)
       .then((response) => {
         console.log(response)
 

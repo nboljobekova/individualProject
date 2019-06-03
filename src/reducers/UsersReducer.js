@@ -1,11 +1,12 @@
 import {
-  GET_USERS_START, GET_USERS_SUCCESS, GET_USERS_FAIL
+  GET_USERS_START, GET_USERS_SUCCESS, GET_USERS_FAIL, ADD_USERS_SUCCESS, SAVE_USERS_SUCCESS, DELETE_USERS_SUCCESS, 
+  // ADD_USERS_FAIL, SAVE_USERS_FAIL, DELETE_USERS_FAIL
   } from "../actions/UsersActions"
   
   export const UsersReducer = (state = {
+    users: [],
     status: null,
     error: null,
-    objects: []
   }, action) => {
     switch(action.type){
       case GET_USERS_START:
@@ -17,7 +18,7 @@ import {
         return {
           ...state,
           status: "success",
-          objects: action.payload
+          users: action.payload
         }
       case GET_USERS_FAIL:
         return {
@@ -25,6 +26,27 @@ import {
           status: "error",
           error: action.payload
         }
+      case ADD_USERS_SUCCESS: 
+      return {
+        ...state,
+        users: [...state.users, action.payload],
+      }
+      
+      case SAVE_USERS_SUCCESS: 
+        return state
+      
+      case DELETE_USERS_SUCCESS: 
+        console.log(action.payload)
+        console.log(state.users)
+        let index = state.users.findIndex((x) => x.id === action.payload); 
+        console.log("index", index)
+        state.users.splice(index, 1)
+        console.log("spliced", state.users)
+        return {
+          users: state.users
+          //state.medSystems.slice(index + 1),
+        } 
+
       default:
         return state
     }
