@@ -7,6 +7,7 @@ import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 import DatePrettify from "./datePrettify"
 import { connect } from "react-redux"
 import { getUsers, addUsers, saveUsers, deleteUsers } from "../actions/UsersActions"
+import "./admin.css"
 
 class AdminUsers extends Component {
 
@@ -26,6 +27,7 @@ class AdminUsers extends Component {
       {
         title: '№',
         dataIndex: 'id',
+        width: '5%',
         key: 'id',
       },
       {
@@ -65,9 +67,10 @@ class AdminUsers extends Component {
       {
         title: 'Действия',
         key: 'action',
+        width: '10%',
         render: (text, id) =>
           <Fragment>
-            <FontAwesomeIcon icon={faEdit} style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-5" onClick={() => this.handleSaveUsers()} />
+            <FontAwesomeIcon icon={faEdit} style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-3" onClick={() => this.handleSaveUsers()} />
             <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer" }} color="red" size='lg' onClick={() => this.handleDeleteUsers(id)} />
           </Fragment>
       }
@@ -77,8 +80,10 @@ class AdminUsers extends Component {
       <Container className="mt-3">
         <Header />
         <Row className="d-flex flex-column justify-content-end p-3">
-          <h2 className="d-flex justify-content-center my-4 mx-auto">Список пользователей</h2>
-          <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={faPlus} color="green" size='lg' /></span>
+          <div className="title">
+            <h2>Список пользователей</h2>
+            <span className="add"><FontAwesomeIcon icon={faPlus} color="green" size='lg' /></span>
+          </div>
           <Table rowKey={record => record.id} columns={columns} dataSource={this.props.users} />
           {/* <EditUserModal /> */}
         </Row>

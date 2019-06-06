@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Row, Table } from 'reactstrap';
+import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import Header from "../components/Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Select } from 'antd';
+import { Table } from 'antd';
 import 'antd/dist/antd.css';
+import "./admin.css"
 
-const data = [
-    'Страх смерти', 'Гордыня', 'Личная выгода', 'Перекладывание ответственности на других',
-    'Жалость к себе', 'Вербальная зависимость', 'Эмоциональная зависимость', 'Зависимость от достижений',  
-    'Требовательность к себе', 'Требовательность к другим', 'Ответственность за других', 'Ответственность за себя'     
-];
+import { connect } from "react-redux"
+import { getPsQuestions, addPsQuestions, savePsQuestions, deletePsQuestions } from "../actions/PsQuestionsActions"
 
 
 class AdminPsQuestions extends Component {

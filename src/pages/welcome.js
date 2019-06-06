@@ -25,6 +25,8 @@ class Welcome extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
         this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
+        this.loginRedirect = this.loginRedirect.bind(this);
+        this.regRedirect = this.regRedirect.bind(this);
       }
     
         openLogModal(e) {
@@ -53,6 +55,14 @@ class Welcome extends Component {
                 regModal: false 
         })};
 
+        loginRedirect(){
+            this.props.history.push('/admin_users'); 
+        }
+
+        regRedirect(){
+            this.props.history.push('/admin_users'); 
+        }
+
         handleChange = (e) => {
             this.setState({ 
                 [e.target.name]: e.target.value 
@@ -67,7 +77,8 @@ class Welcome extends Component {
             console.log(dataToSend);
             this.props.onAddUsers(dataToSend).then(success=> {
                 if(success){
-                    this.closeModal()
+                    this.closeModal();
+                    this.loginRedirect()
                 }
             })
             // const innerState = {...this.state};
@@ -93,11 +104,12 @@ class Welcome extends Component {
                 "email": this.state.email, 
                 "password": this.state.password,
                 "date": new Date(),
-                "role": "User",
+                "role": "Admin",
             }
             this.props.onAddUsers(dataToSend).then(success=> {
                 if(success){
-                    this.closeModal()
+                    this.closeModal();
+                    this.regRedirect()
                 }
             })
         }

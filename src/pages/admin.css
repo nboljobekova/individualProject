@@ -1,0 +1,16 @@
+.title {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0;
+    align-items: center;
+}
+
+h2 {
+    width: 93%;
+    text-align: center;
+}
+
+.add {
+    width: 7%;
+    padding: 0.3em 0;
+}

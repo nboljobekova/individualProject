@@ -3,9 +3,9 @@ import { Container, Row } from 'reactstrap';
 import Header from "../components/Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
-// import makeAnimated from 'react-select/animated';
 import { Table } from 'antd';
 import 'antd/dist/antd.css';
+import "./admin.css"
 
 import { connect } from "react-redux"
 // import { getMedSystems, addMedSystem, saveMedSystem, deleteMedSystem } from "../actions/MedSystemsActions"
@@ -61,6 +61,7 @@ class AdminMedQuestions extends Component {
       {
         title: '№',
         dataIndex: 'id',
+        width: '5%',
         key: 'id',
       },
       {
@@ -76,9 +77,10 @@ class AdminMedQuestions extends Component {
       {
         title: 'Действия',
         key: 'action',
+        width: '10%',
         render: (text, id) => 
         <Fragment>
-          <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-5" onClick={()=>this.handleSaveMedQuestions()} />
+          <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-3" onClick={()=>this.handleSaveMedQuestions()} />
           <FontAwesomeIcon icon={ faTrash } style={{ cursor: "pointer" }} color="red" size='lg' onClick={()=>this.handleDeleteMedQuestions(id)} />
         </Fragment>
       }
@@ -88,8 +90,10 @@ class AdminMedQuestions extends Component {
       <Container className="mt-3">
         <Header />
         <Row className="d-flex flex-column justify-content-end p-3">
-          <h2 className="d-flex justify-content-center my-4 mx-auto">Список медицинских вопросов</h2>
-          <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
+          <div className="title">
+            <h2>Список медицинских вопросов</h2>
+            <span className="add"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
+          </div>
           <Table rowKey={record => record.id} columns={columns} dataSource={this.props.medQuestions} />
         </Row>
       </Container>

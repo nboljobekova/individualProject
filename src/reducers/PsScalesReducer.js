@@ -1,25 +1,25 @@
 import {
-    PS_SYSTEMS_START, PS_SYSTEMS_SUCCESS, PS_SYSTEMS_FAIL
-  } from "../actions/PsSystemsActions"
+    PS_SCALES_START, PS_SCALES_SUCCESS, PS_SCALES_FAIL
+  } from "../actions/PsScalesActions"
   
-  export const PsSystemsReducer = (state = {
+  export const PsScalesReducer = (state = {
     status: null,
     error: null,
-    objects: []
+    PsScales: []
   }, action) => {
     switch(action.type){
-      case PS_SYSTEMS_START:
+      case PS_SCALES_START:
         return {
           ...state,
           status: "loading"
         }
-      case PS_SYSTEMS_SUCCESS:
+      case PS_SCALES_SUCCESS:
         return {
           ...state,
           status: "success",
-          objects: action.payload
+          PsScales: action.payload
         }
-      case PS_SYSTEMS_FAIL:
+      case PS_SCALES_FAIL:
         return {
           ...state,
           status: "error",
