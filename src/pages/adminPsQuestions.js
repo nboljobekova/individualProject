@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { Component, Fragment } from 'react';
+import { Container, Row } from 'reactstrap';
 import Header from "../components/Header"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -12,60 +12,106 @@ import { getPsQuestions, addPsQuestions, savePsQuestions, deletePsQuestions } fr
 
 
 class AdminPsQuestions extends Component {
-    state = {
-        selectedItems: [],
-    };
+    constructor() {
+        super();
     
-    handleChange = selectedItems => {
-        this.setState({ selectedItems });
-    };
+        this.state = {
+          currentId: null,
+          editing: false,
+          newPsQuestion: {
+            name: "",
+            relatedScales: "",
+          },
+          tableConfig: {
+            bordered: true,
+            loading: true,
+          }
+        };
+      }
+    
+    componentDidMount(){
+    this.props.onGetPsQuestions()
+    // this.props.onGetPsScales()
+    }
+  
+    changePsQuestion(e) {
+      this.setState({newPsQuestion:{name:e.target.value }})
+    }
+  
+    savePsQuestions(){
+      this.props.dispatch(savePsQuestions({id: this.state.currentId, name: this.state.newPsQuestion}))
+      this.setState({ editing: false, newPsQuestion: { name: "" } })
+    }
+  
+    handleSavePsQuestions(e){
+      console.log(e)
+      this.setState( this.props.psQuestions, { id: e.id, name:e.name })
+    }
+  
+    handleDeletePsQuestions = async (e) => {
+      console.log(this.props)
+      await this.props.onDeletePsQuestions(e.id)
+      this.props.onGetPsQuestions()
+    }
+  
 
     render(){
-        const { selectedItems } = this.state;
-        const filteredOptions = data.filter(o => !selectedItems.includes(o));
-        return (
-            <Container className="mt-3">
-                <Header />
-                <Row className="d-flex justify-content-end p-3">
-                <h2 className="d-flex justify-content-center my-4 mx-auto">Список психологических вопросов</h2>
-                <span className="d-flex align-items-center pr-5"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
-                    <Table bordered>
-                        <thead>
-                        <tr>
-                            <th>№</th>
-                            <th style={{width: '55%'}}>Название вопроса</th>
-                            <th style={{width: '35%'}}>Соответствующие шкалы</th>
-                            <th>Действия</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>...</td>
-                            <td>
-                                <Select
-                                    mode="multiple"
-                                    placeholder="Выберите шкалу"
-                                    value={selectedItems}
-                                    onChange={this.handleChange}
-                                    className="multipe-select"
-                                    style={{ width: '100%' }}
-                                >
-                                    {filteredOptions.map(item => (
-                                    <Select.Option key={item} value={item}>
-                                        {item}
-                                    </Select.Option>
-                                    ))}
-                                </Select>
-                            </td>
-                            <td style={{textAlign: "center"}}><FontAwesomeIcon icon={ faEdit } color="orange" size='lg' className="mr-3"/> <FontAwesomeIcon icon={ faTrash } color="red" size='lg' /></td>
-                        </tr>
-                        </tbody>
-                    </Table>
-                </Row>
-            </Container>
-        )
-    }
-}
+        const columns = [
+          {
+            title: '№',
+            dataIndex: 'id',
+            width: '5%',
+            key: 'id',
+          },
+          {
+            title: 'Название психологического вопроса',
+            dataIndex: 'name',
+            key: 'name',
+          },
+          {
+              title: 'Соответствующие шкалы',
+              dataIndex: 'relatedScales',
+              key: 'relatedScales',
+            },
+          {
+            title: 'Действия',
+            key: 'action',
+            width: '10%',
+            render: (text, id) => 
+            <Fragment>
+              <FontAwesomeIcon icon={ faEdit } style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-3" onClick={()=>this.handleSavePsQuestions()} />
+              <FontAwesomeIcon icon={ faTrash } style={{ cursor: "pointer" }} color="red" size='lg' onClick={()=>this.handleDeletePsQuestions(id)} />
+            </Fragment>
+          }
+        ];
 
-export default AdminPsQuestions;
+        return (
+          <Container className="mt-3">
+            <Header />
+            <Row className="d-flex flex-column justify-content-end p-3">
+              <div className="title">
+                <h2>Список психологических вопросов</h2>
+                <span className="add"><FontAwesomeIcon icon={ faPlus } color="green" size='lg' /></span>
+              </div>
+              <Table rowKey={record => record.id} columns={columns} dataSource={this.props.psQuestions} />
+            </Row>
+          </Container>
+        )
+      }
+    }
+    
+    
+    const mapStateToProps = state => ({
+        psScales: state.psScales.psScales,
+        psQuestions: state.psQuestions.psQuestions,
+    });
+    
+    const mapDispatchToProps = dispatch => ({
+        onGetPsQuestions: () => dispatch(getPsQuestions()),
+        onAddPsQuestions: () => dispatch(addPsQuestions()),
+        onSavePsQuestions: () => dispatch(savePsQuestions()),
+        onDeletePsQuestions: (id) => dispatch(deletePsQuestions(id)),
+    })
+      
+      
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPsQuestions)

@@ -1,8 +1,8 @@
 import axios from "../axios";
 
 export const GET_MEDSYSTEMS_START = "GET_MEDSYSTEMS_START";
-export const GET_MEDSYSTEMS_SUCCESS = "MED_SYSTEMS_SUCCESS";
-export const GET_MEDSYSTEMS_FAIL = "MED_SYSTEMS_FAIL";
+export const GET_MEDSYSTEMS_SUCCESS = "GET_MEDSYSTEMS_SUCCESS";
+export const GET_MEDSYSTEMS_FAIL = "GET_MEDSYSTEMS_FAIL";
 export const ADD_MEDSYSTEM_SUCCESS = "ADD_MEDSYSTEM_SUCCESS";
 export const ADD_MEDSYSTEM_FAIL = "ADD_MEDSYSTEM_FAIL";
 export const SAVE_MEDSYSTEM_SUCCESS = "SAVE_MEDSYSTEM_SUCCESS";
@@ -29,7 +29,7 @@ export const getMedSystems = () => {
 
 export const addMedSystem = (payload) => {
   return (dispatch) => {
-    return axios.post("http://localhost:3000/medSystems", payload)
+    return axios.post("http://localhost:3000/medSystems/", payload)
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_MEDSYSTEM_SUCCESS, payload: payload})//the new item is returned with an ID
@@ -43,7 +43,7 @@ export const addMedSystem = (payload) => {
 export const saveMedSystem = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    return axios.put("http://localhost:3000/medSystems"+payload.id, payload.data)
+    return axios.put("http://localhost:3000/medSystems/"+payload.id, payload.data)
       .then(() => {
         dispatch({type: SAVE_MEDSYSTEM_SUCCESS })
 

@@ -17,8 +17,8 @@ class AdminMedSystems extends Component {
 
     this.state = {
       addMedSystemModal: false,
+      editMedSystemModal: false,      
       name: '',
-
       currentId: null,
       editing: false,
       newMedSystem: {
@@ -30,10 +30,15 @@ class AdminMedSystems extends Component {
       }
     };
     this.openAddMedSystemModal = this.openAddMedSystemModal.bind(this);
+    this.openEditMedSystemModal = this.openEditMedSystemModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.modalRedirect = this.modalRedirect.bind(this);
+    // this.modalRedirect = this.modalRedirect.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAddMedSystemModalSubmit = this.handleAddMedSystemModalSubmit.bind(this);
+    this.handleEditMedSystemModalSubmit = this.handleEditMedSystemModalSubmit.bind(this);
+    // this.handleUpdateMedSystem = this.handleUpdateMedSystem.bind(this);
+
+    
   }
 
   componentDidMount() {
@@ -41,16 +46,20 @@ class AdminMedSystems extends Component {
     console.log(this.props.medSystems)
   }
 
-  // redirect = () => {
-  //   console.log(this.props)
-  //   this.props.history.push('/add_systems'); 
-
-  // }
-
   openAddMedSystemModal = (e) => {
     e.preventDefault();
     this.setState({
       addMedSystemModal: true,
+      editMedSystemModal: false,
+      name: '',
+    })
+  };
+
+  openEditMedSystemModal = (e) => {
+    e.preventDefault();
+    this.setState({
+      addMedSystemModal: false,
+      editMedSystemModal: true,
       name: '',
     })
   };
@@ -58,12 +67,13 @@ class AdminMedSystems extends Component {
   closeModal = () => {
     this.setState({
       addMedSystemModal: false,
+      editMedSystemModal: false,
     })
   };
 
-  modalRedirect = () => {
-    this.props.history.push('/med_systems');
-  }
+  // modalRedirect = () => {
+  //   this.props.history.push('/med_systems');
+  // }
 
   handleChange = (e) => {
     this.setState({
@@ -79,8 +89,24 @@ class AdminMedSystems extends Component {
     console.log(dataToSend);
     await this.props.onAddMedSystems(dataToSend).then(success => {
       if (success) {
-        this.closeModal();
+        console.log("success")
         this.props.onGetMedSystems()
+        this.closeModal();
+      }
+    });
+  }
+
+  handleEditMedSystemModalSubmit = async (e) => {
+    e.preventDefault();
+    const dataToSend = {
+      "name": this.state.name,
+    }
+    console.log(dataToSend);
+    await this.props.onSaveMedSystems(dataToSend).then(success => {
+      if (success) {
+        console.log("success")
+        this.props.onGetMedSystems()
+        this.closeModal();
       }
     });
   }
@@ -99,11 +125,6 @@ class AdminMedSystems extends Component {
     //   this.props.onGetMedSystems()
     // };
 
-    // handleSaveMedSystems = async (e) => {
-    //   console.log(e)
-    //   this.setState({ id: e.id, medSystems: { name: e.name } })
-    // };
-
 
 
     render() {
@@ -115,7 +136,7 @@ class AdminMedSystems extends Component {
           key: 'id',
         },
         {
-          title: 'Название системы',
+          title: 'Название медицинской системы',
           dataIndex: 'name',
           key: 'name',
         },
@@ -125,7 +146,7 @@ class AdminMedSystems extends Component {
           width: '10%',
           render: (text, id) =>
             <Fragment>
-              <FontAwesomeIcon icon={faEdit} style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-3" onClick={() => this.handleUpdateMedSystem(text)} />
+              <FontAwesomeIcon icon={faEdit} style={{ cursor: "pointer" }} color="orange" size='lg' className="mr-3" onClick={this.openEditMedSystemModal} />
               <FontAwesomeIcon icon={faTrash} style={{ cursor: "pointer" }} color="red" size='lg' onClick={() => this.handleDeleteMedSystems(id)} />
             </Fragment>
         },
@@ -143,22 +164,43 @@ class AdminMedSystems extends Component {
           <Modal
             isOpen={this.state.addMedSystemModal}
           >
-            <ModalHeader>Создание медицинского вопроса</ModalHeader>
+            <ModalHeader>Создание медицинской системы</ModalHeader>
             <Form onSubmit={this.handleAddMedSystemModalSubmit}>
               <ModalBody>
                 <FormGroup>
-                  <Label>Название медицинского вопроса</Label>
                   <Input
                     type="name"
                     name="name"
                     value={this.state.name}
                     onChange={this.handleChange}
-                    placeholder="Введите название вопроса"
+                    placeholder="Введите название медицинской системы"
                   />
                 </FormGroup>
               </ModalBody>
               <ModalFooter>
                 <Button color="primary" type="submit">Создать</Button>{' '}
+                <Button color="secondary" onClick={this.closeModal}>Отмена</Button>
+              </ModalFooter>
+            </Form>
+          </Modal>
+          <Modal
+            isOpen={this.state.editMedSystemModal}
+          >
+            <ModalHeader>Изменение медицинской системы</ModalHeader>
+            <Form onSubmit={this.handleEditMedSystemModalSubmit}>
+              <ModalBody>
+                <FormGroup>
+                  <Input
+                    type="name"
+                    name="name"
+                    value={this.name}
+                    onChange={this.handleChange}
+                    placeholder="Введите название другой медицинской системы"
+                  />
+                </FormGroup>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="primary" type="submit">Изменить</Button>{' '}
                 <Button color="secondary" onClick={this.closeModal}>Отмена</Button>
               </ModalFooter>
             </Form>
@@ -176,7 +218,7 @@ class AdminMedSystems extends Component {
   const mapDispatchToProps = dispatch => ({
     onGetMedSystems: () => dispatch(getMedSystems()),
     onAddMedSystems: (name) => dispatch(addMedSystem(name)),
-    onSaveMedSystems: (text) => dispatch(saveMedSystem(text)),
+    onSaveMedSystems: (name) => dispatch(saveMedSystem(name)),
     onDeleteMedSystems: (id) => dispatch(deleteMedSystem(id)),
   })
 

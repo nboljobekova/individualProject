@@ -19,7 +19,7 @@ export const getPsQuestions = () => {
     axios.get("http://localhost:3000/psQuestions")
       .then((response) => {
         console.log(response)
-        dispatch({ type: GET_PSQUESTIONS_SUCCESS, psQuestions: response.data })
+        dispatch({ type: GET_PSQUESTIONS_SUCCESS, payload: response.data })
       })
       .catch((error) => {
         console.log(error)
@@ -30,7 +30,7 @@ export const getPsQuestions = () => {
 
 export const addPsQuestions = (payload) => {
   return (dispatch) => {
-    axios.post("/psQuestions", payload)
+    return axios.post("http://localhost:3000/psQuestions/", payload)
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_PSQUESTIONS_SUCCESS, payload: payload})//the new item is returned with an ID
@@ -44,11 +44,11 @@ export const addPsQuestions = (payload) => {
 export const savePsQuestions = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.put("/psQuestions"+payload.id, payload.data)
+    axios.put("http://localhost:3000/psQuestions/"+payload.id, payload.data)
       .then(() => {
         dispatch({type: SAVE_PSQUESTIONS_SUCCESS })
 
-        axios.get("/psQuestions")
+        return axios.get("http://localhost:3000/psQuestions")
           .then((response) => {
             dispatch({type: GET_PSQUESTIONS_SUCCESS, payload: response.data})
           })
@@ -65,7 +65,7 @@ export const savePsQuestions = (payload) => {
 export const deletePsQuestions = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.delete("/psQuestions"+payload)
+    axios.delete("http://localhost:3000/psQuestions"+payload)
       .then((response) => {
         console.log(response)
 
