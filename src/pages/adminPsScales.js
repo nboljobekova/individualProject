@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Row, Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Input } from 'reactstrap';
 import Header from "../components/Header";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -75,8 +75,8 @@ class AdminPsScales extends Component {
         console.log(dataToSend);
         await this.props.onAddPsScales(dataToSend).then(success => {
           if (success) {
-            this.closeModal();
             this.props.onGetPsScales()
+            this.closeModal();
           }
         });
       }

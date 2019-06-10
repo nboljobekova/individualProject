@@ -33,9 +33,11 @@ export const addMedSystem = (payload) => {
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_MEDSYSTEM_SUCCESS, payload: payload})//the new item is returned with an ID
+        return true
       })
       .catch((error) => {
         dispatch({type: ADD_MEDSYSTEM_FAIL, payload: error})
+        return false
       })
   }
 }

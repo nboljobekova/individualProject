@@ -34,9 +34,11 @@ export const addPsQuestions = (payload) => {
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_PSQUESTIONS_SUCCESS, payload: payload})//the new item is returned with an ID
+        return true
       })
       .catch((error) => {
         dispatch({type: ADD_PSQUESTIONS_FAIL, payload: error})
+        return false
       })
   }
 }
@@ -65,7 +67,7 @@ export const savePsQuestions = (payload) => {
 export const deletePsQuestions = (payload) => {
   console.log(payload)
   return (dispatch) => {
-    axios.delete("http://localhost:3000/psQuestions"+payload)
+    return axios.delete("http://localhost:3000/psQuestions/" + payload)
       .then((response) => {
         console.log(response)
 

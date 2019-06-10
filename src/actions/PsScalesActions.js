@@ -34,9 +34,11 @@ export const addPsScales = (payload) => {
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_PSSCALES_SUCCESS, payload: payload})//the new item is returned with an ID
+        return true
       })
       .catch((error) => {
         dispatch({type: ADD_PSSCALES_FAIL, payload: error})
+        return false
       })
   }
 }

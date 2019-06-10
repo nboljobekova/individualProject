@@ -33,9 +33,11 @@ export const addMedQuestions = (payload) => {
       .then((response) => {
         payload.id = response.data.id;
         dispatch({type: ADD_MEDQUESTIONS_SUCCESS, payload: payload})//the new item is returned with an ID
+        return true
       })
       .catch((error) => {
         dispatch({type: ADD_MEDQUESTIONS_FAIL, payload: error})
+        return false
       })
   }
 }
@@ -46,13 +48,14 @@ export const saveMedQuestions = (payload) => {
     return axios.put("http://localhost:3000/medQuestions/" + payload.id, payload.data)
       .then(() => {
         dispatch({type: SAVE_MEDQUESTIONS_SUCCESS })
-
         return axios.get("http://localhost:3000/medQuestions")
           .then((response) => {
             dispatch({type: GET_MEDQUESTIONS_SUCCESS, payload: response.data})
+            return true
           })
           .catch((error) => {
             dispatch({type: GET_MEDQUESTIONS_FAIL, payload: error})
+            return false
           })
       })
       .catch((error) => {
