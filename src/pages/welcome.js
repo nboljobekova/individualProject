@@ -27,6 +27,7 @@ class Welcome extends Component {
         this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
         this.loginRedirect = this.loginRedirect.bind(this);
         this.regRedirect = this.regRedirect.bind(this);
+        this.medSurveyRedirect = this.medSurveyRedirect.bind(this);
       }
     
         openLogModal(e) {
@@ -63,6 +64,10 @@ class Welcome extends Component {
             this.props.history.push('/admin_users'); 
         }
 
+        medSurveyRedirect(){
+            this.props.history.push('/med_survey'); 
+        }
+
         handleChange = (e) => {
             this.setState({ 
                 [e.target.name]: e.target.value 
@@ -81,9 +86,6 @@ class Welcome extends Component {
                     this.loginRedirect()
                 }
             })
-            // const innerState = {...this.state};
-            // delete innerState.logModal;
-            // delete innerState.regModal;
 
             // const formData = new FormData();
             // Object.keys(innerState).forEach(key => {
@@ -126,8 +128,7 @@ class Welcome extends Component {
                 <Row className="welcome_main-block mt-5 mx-auto">
                     <h1 className="mt-5">Добро пожаловать!</h1>
                     <h2 className="mt-5 mb-5">Пожалуйста, выберите тип опроса</h2>
-                    <Button outline color="success mb-3" block>Медицинский опрос</Button>
-                    <Button outline color="warning" block>Психологический опрос</Button>
+                    <Button outline color="success mb-3" block onClick={this.medSurveyRedirect}>Медицинский опрос</Button>
                 </Row>
                 <Modal
                     isOpen={this.state.logModal}

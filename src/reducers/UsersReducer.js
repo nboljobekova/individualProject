@@ -36,12 +36,12 @@ import {
         return state
       
       case DELETE_USERS_SUCCESS: 
-        console.log(action.payload)
-        console.log(state.users)
+        // console.log(action.payload)
+        // console.log(state.users)
         let index = state.users.findIndex((x) => x.id === action.payload); 
-        console.log("index", index)
+        // console.log("index", index)
         state.users.splice(index, 1)
-        console.log("spliced", state.users)
+        // console.log("spliced", state.users)
         return {
           users: state.users
           //state.medSystems.slice(index + 1),

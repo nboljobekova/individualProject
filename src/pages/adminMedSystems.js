@@ -145,15 +145,15 @@ class AdminMedSystems extends Component {
         key: "action",
         width: "10%",
         render: (text, id) => (
-          <Fragment>
-            <FontAwesomeIcon
-              icon={faEdit}
-              style={{ cursor: "pointer" }}
-              color="orange"
-              size="lg"
-              className="mr-3"
-              onClick={e => this.openEditMedSystemModal(e)}
-            />
+          // <Fragment>
+          //   <FontAwesomeIcon
+          //     icon={faEdit}
+          //     style={{ cursor: "pointer" }}
+          //     color="orange"
+          //     size="lg"
+          //     className="mr-3"
+          //     onClick={e => this.openEditMedSystemModal(e)}
+          //   />
             <FontAwesomeIcon
               icon={faTrash}
               style={{ cursor: "pointer" }}
@@ -161,7 +161,7 @@ class AdminMedSystems extends Component {
               size="lg"
               onClick={() => this.handleDeleteMedSystems(id)}
             />
-          </Fragment>
+          // </Fragment>
         )
       }
     ];

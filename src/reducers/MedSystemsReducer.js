@@ -8,7 +8,7 @@ export const MedSystemsReducer = (state = {
     status: null,
     error: null,
   }, action) => {
-    console.log("action: ", action)
+    // console.log("action: ", action)
     switch(action.type){
       case GET_MEDSYSTEMS_START:
         return {
@@ -38,12 +38,12 @@ export const MedSystemsReducer = (state = {
         return state
       
       case DELETE_MEDSYSTEM_SUCCESS: 
-        console.log(action.payload)
-        console.log(state.medSystems)
+        // console.log(action.payload)
+        // console.log(state.medSystems)
         let index = state.medSystems.findIndex((x) => x.id === action.payload); 
-        console.log("index", index)
+        // console.log("index", index)
         state.medSystems.splice(index, 1)
-        console.log("spliced", state.medSystems)
+        // console.log("spliced", state.medSystems)
         return {
           medSystems: state.medSystems
           //state.medSystems.slice(index + 1),

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   Container,
   Row,
@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Select, Table } from "antd";
 import "antd/dist/antd.css";
 import "./admin.css";
@@ -38,14 +38,6 @@ class AdminMedQuestions extends Component {
       selectedItems: [],
       currentId: null,
       editing: false,
-      newMedQuestion: {
-        name: "",
-        relatedSystem: ""
-      },
-      tableConfig: {
-        bordered: true,
-        loading: true
-      }
     };
     this.openAddMedQuestionModal = this.openAddMedQuestionModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -164,15 +156,15 @@ class AdminMedQuestions extends Component {
         key: "action",
         width: "10%",
         render: (text, id) => (
-          <Fragment>
-            <FontAwesomeIcon
-              icon={faEdit}
-              style={{ cursor: "pointer" }}
-              color="orange"
-              size="lg"
-              className="mr-3"
-              onClick={() => this.handleSaveMedQuestions()}
-            />
+          // <Fragment>
+            // {/* <FontAwesomeIcon
+            //   icon={faEdit}
+            //   style={{ cursor: "pointer" }}
+            //   color="orange"
+            //   size="lg"
+            //   className="mr-3"
+            //   onClick={() => this.handleSaveMedQuestions()}
+            // /> */}
             <FontAwesomeIcon
               icon={faTrash}
               style={{ cursor: "pointer" }}
@@ -180,7 +172,7 @@ class AdminMedQuestions extends Component {
               size="lg"
               onClick={() => this.handleDeleteMedQuestions(id)}
             />
-          </Fragment>
+          // </Fragment>
         )
       }
     ];

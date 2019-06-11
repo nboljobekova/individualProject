@@ -4,8 +4,6 @@ import { createLogger } from "redux-logger";
 import { UsersReducer } from "./reducers/UsersReducer";
 import { MedQuestionsReducer } from "./reducers/MedQuestionsReducer"; 
 import { MedSystemsReducer } from "./reducers/MedSystemsReducer";
-import { PsQuestionsReducer } from "./reducers/PsQuestionsReducer";
-import { PsScalesReducer } from "./reducers/PsScalesReducer";
 
 import thunkMiddleware from 'redux-thunk';
 import {createBrowserHistory} from "history";
@@ -15,8 +13,6 @@ const rootReducer = combineReducers({
   users: UsersReducer,
   medQuestions: MedQuestionsReducer,
   medSystems: MedSystemsReducer,
-  psQuestions: PsQuestionsReducer, 
-  psScales: PsScalesReducer
 });
 
 export const history = createBrowserHistory();

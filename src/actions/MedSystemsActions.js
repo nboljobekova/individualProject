@@ -17,11 +17,11 @@ export const getMedSystems = () => {
     dispatch (getMedSystemsStart)
     axios.get("http://localhost:3000/medSystems")
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch({ type: GET_MEDSYSTEMS_SUCCESS, payload: response.data })
       })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
         dispatch({ type: GET_MEDSYSTEMS_FAIL, payload: error })
       })
   }

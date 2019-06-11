@@ -14,3 +14,11 @@ h2 {
     width: 7%;
     padding: 0.3em 0;
 }
+
+.icon {
+    cursor: pointer;
+    text-align: center;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}

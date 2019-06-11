@@ -9,6 +9,10 @@ export const SAVE_MEDQUESTIONS_SUCCESS = "SAVE_MEDQUESTIONS_SUCCESS";
 export const SAVE_MEDQUESTIONS_FAIL = "SAVE_MEDQUESTIONS_FAIL";
 export const DELETE_MEDQUESTIONS_SUCCESS = "DELETE_MEDQUESTIONS_SUCCESS";
 export const DELETE_MEDQUESTIONS_FAIL = "DELETE_MEDQUESTIONS_FAIL";
+export const TEST_MEDQUESTIONS_SUCCESS = "TEST_MEDQUESTIONS_SUCCESS";
+export const TEST_MEDQUESTIONS_FAIL = "TEST_MEDQUESTIONS_FAIL";
+export const GENERATE_ANSWERS_SUCCESS = "GENERATE_ANSWERS_SUCCESS";
+export const GENERATE_ANSWERS_FAIL = "GENERATE_ANSWERS_FAIL";
 
 const getMedQuestionsStart = () => ({type: GET_MEDQUESTIONS_START});
 
@@ -17,11 +21,11 @@ export const getMedQuestions = () => {
     dispatch (getMedQuestionsStart)
     axios.get("http://localhost:3000/medQuestions")
       .then((response) => {
-        console.log(response)
+        // console.log(response)
         dispatch({ type: GET_MEDQUESTIONS_SUCCESS, payload: response.data })
       })
       .catch((error) => {
-        console.log(error)
+        // console.log(error)
         dispatch({ type: GET_MEDQUESTIONS_FAIL, payload: error })
       })
   }
@@ -43,7 +47,7 @@ export const addMedQuestions = (payload) => {
 }
 
 export const saveMedQuestions = (payload) => {
-  console.log(payload)
+  // console.log(payload)
   return (dispatch) => {
     return axios.put("http://localhost:3000/medQuestions/" + payload.id, payload.data)
       .then(() => {
@@ -69,20 +73,48 @@ export const deleteMedQuestions = (payload) => {
   return (dispatch) => {
     return axios.delete("http://localhost:3000/medQuestions/" + payload)
       .then((response) => {
-        console.log(response)
-
+        // console.log(response)
         dispatch({type: DELETE_MEDQUESTIONS_SUCCESS, payload: payload })
-
-        /*axios.get("/medQuestions")
-          .then((response) => {
-            dispatch({type: GET_MEDQUESTIONS_SUCCESS, payload: response.data })
-          })
-          .catch((error) => {
-            dispatch({type: GET_MEDQUESTIONS_FAIL, payload: error})
-          })*/
       })
       .catch((error) => {
         dispatch({type: DELETE_MEDQUESTIONS_FAIL, payload: error})
       })
   }
 }
+
+export const testMedQuestions = (payload) => {
+  return (dispatch) => {
+    return axios.put("http://localhost:3000/medQuestions/", payload.data)
+      .then((response) => {
+        dispatch({type: TEST_MEDQUESTIONS_SUCCESS, payload: response.data})//the new item is returned with an ID
+        return true
+      })
+      .catch((error) => {
+        dispatch({type: TEST_MEDQUESTIONS_FAIL, payload: error})
+        return false
+      })
+  }
+}
+
+
+// export const generateAnswers = (payload) => {
+//    const f = (dispatch, getState) => {
+//     const questions = getState().questions;
+//     if (!questions.length){
+//       setTimeout(f, 150, dispatch, getState)
+//       return
+//     }
+//     console.log("OK")
+//     return axios.put("http://localhost:3000/medQuestions/", payload.data)
+//       .then((response) => {
+//         dispatch({type: GENERATE_ANSWERS_SUCCESS, payload: response.data})//the new item is returned with an ID
+//         return true
+//       })
+//       .catch((error) => {
+//         dispatch({type: GENERATE_ANSWERS_FAIL, payload: error})
+//         return false
+//       })
+
+//   }
+//   return f
+// }
