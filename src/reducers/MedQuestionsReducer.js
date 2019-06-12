@@ -5,14 +5,14 @@ import {
   ADD_MEDQUESTIONS_SUCCESS,
   SAVE_MEDQUESTIONS_SUCCESS,
   DELETE_MEDQUESTIONS_SUCCESS,
-  TEST_MEDQUESTIONS_SUCCESS,
-  GENERATE_ANSWERS_SUCCESS
+  TEST_MEDQUESTIONS_SUCCESS
   // ADD_MEDQUESTIONS_FAIL, SAVE_MEDQUESTIONS_FAIL, DELETE_MEDQUESTIONS_FAIL
 } from "../actions/MedQuestionsActions";
 
 export const MedQuestionsReducer = (
   state = {
     medQuestions: [],
+    test: [],
     status: null,
     error: null,
     // answer: false,
@@ -61,13 +61,12 @@ export const MedQuestionsReducer = (
 
 
     case TEST_MEDQUESTIONS_SUCCESS:
-      return state;
-
-
-    case GENERATE_ANSWERS_SUCCESS:
       return {
-
+        ...state,
+        test: [...state.test, action.payload]
       };
+        
+
 
     default:
       return state;

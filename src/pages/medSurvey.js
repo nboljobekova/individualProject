@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Container, Row, Progress } from "reactstrap";
+import { Container, Row, Progress, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { List } from "antd";
+import { List, Form, Input } from "antd";
+import "./survey.css";
 
 import { connect } from "react-redux";
 import { getMedSystems } from "../actions/MedSystemsActions";
@@ -11,15 +12,26 @@ import {
   testMedQuestions
 } from "../actions/MedQuestionsActions";
 
+const formItemLayout = {
+  labelCol: { span: 3 },
+  wrapperCol: { span: 21 }
+};
+
 class MedSurvey extends Component {
   constructor(props) {
     super(props);
     this.state = {
       results: [],
-      counter: {}
+      counter: {},
+      firstName: "",
+      lastName: "",
+      email: ""
     };
-    this.getAnswers = this.getAnswers.bind(this);
-    this.handleReplyQuestion = this.handleReplyQuestion.bind(this);
+    this.handleGetAnswers = this.handleGetAnswers.bind(this);
+    this.handleCalculateSystems = this.handleCalculateSystems.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSendAllData = this.handleSendAllData.bind(this);
+    
   }
 
   componentDidMount() {
@@ -27,19 +39,45 @@ class MedSurvey extends Component {
     this.props.onGetMedSystems();
   }
 
-  getAnswers(){
-    this.state.results.forEach(id => {
-        const q = this.props.medQuestions[this.props.medQuestions.findIndex(q => q.id === id)];
-        console.log(q)
-        this.state.results.push(q)
+  handleGetAnswers = async e => {
+    // e.preventDefault();
+    console.log(e)
+    let results = [...this.state.results];
+    if (results.includes(e.id)) {
+      results.splice(results.findIndex(id => e.id === id), 1);
+    } else {
+      results.push(e.id, e.relatedSystem);
+    }
+    this.setState({ results });
+
+    this.handleCalculateSystems()
+  };
+
+  handleCalculateSystems= async e => {
+    // e.preventDefault();
+    let results = [...this.state.results];
+    let counter = { ...this.state.counter };
+    // console.log(results.relatedSystem)
+    results.forEach(r => {
+        console.log(r.relatedSystem)
     })
+    // results.forEach(r => {
+    //     r.relatedSystem.forEach(s => {
+    //         counter[s] ? counter[s]++ : counter[s]=1
+    //     })
+    // })
+    // this.setState({counter})
   }
 
-  handleReplyQuestion = async e => {
-    console.log(e);
+  handleSendAllData = async e => {
     e.preventDefault();
+    let results = [...this.state.results];
+    let counter = { ...this.state.counter };
     const dataToSend = {
-      answers: this.state.results
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      answers: results
     };
     console.log(dataToSend);
     await this.props.onTestMedQuestions(dataToSend).then(success => {
@@ -47,9 +85,19 @@ class MedSurvey extends Component {
         console.log("success");
       }
     });
+
+    console.log(results);
+  };
+
+  handleChange = e => {
+      console.log(e.target.name)
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   render() {
+    console.log(this.state);
     return (
       <Container className="mt-3">
         <Row className="welcome_main-block mt-5 mx-auto">
@@ -60,6 +108,7 @@ class MedSurvey extends Component {
             <Progress animated bar color="danger" value="20" />
             <Progress animated bar color="info" value="20" />
           </Progress>
+
           <h2 className="mb-5">
             Пожалуйста, отметьте галочкой, если ответ положительный
           </h2>
@@ -69,33 +118,80 @@ class MedSurvey extends Component {
             pagination="true"
             size="large"
             renderItem={item => (
-                <List.Item>
-                    <List.Item.Meta title={item.name} />
-                    <FontAwesomeIcon
-                    icon={faCircle}
-                    style={{ cursor: "pointer" }}
-                    color="green"
-                    size="lg"
-                    className="mr-3"
-                    onClick={this.getAnswers}
-                    />                    
-                    <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    style={{ cursor: "pointer" }}
-                    color="green"
-                    size="lg"
-                    className="mr-3"
-                    onClick={this.getAnswers}
-                    />
-                </List.Item>
+              <List.Item>
+                <List.Item.Meta title={item.name} />
+                <FontAwesomeIcon
+                  icon={
+                    this.state.results.includes(item.id)
+                      ? faCheckCircle
+                      : faCircle
+                  }
+                  style={{ cursor: "pointer" }}
+                  color="green"
+                  size="lg"
+                  className="mr-3"
+                  onClick={() => this.handleGetAnswers(item)}
+                />
+              </List.Item>
             )}
-         />
+          />
+          <Button
+            outline
+            color="success mb-3 mt-3"
+            className="next"
+            // onClick={this.openForm}
+          >
+            Далее
+          </Button>
+
+          <div className="form">
+            <Form.Item {...formItemLayout} label="Фамилия">
+              <Input
+                placeholder="Введите вашу фамилию"
+                type="text"
+                name="lastName"
+                className="input"
+                value={this.state.lastName}
+                onChange={this.handleChange}
+                required
+              />
+            </Form.Item>
+            <Form.Item {...formItemLayout} label="Имя">
+              <Input
+                placeholder="Введите ваше имя"
+                type="text"
+                name="firstName"
+                className="input"
+                value={this.state.firstName}
+                onChange={this.handleChange}
+                required
+              />
+            </Form.Item>
+            <Form.Item {...formItemLayout} label="email">
+              <Input
+                placeholder="Введите ваш email"
+                type="text"
+                name="email"
+                className="input"
+                // value={this.state.email}
+                onChange={this.handleChange}
+                required
+              />
+            </Form.Item>
+            <Button
+              outline
+              color="success mb-3 mt-3"
+              block
+              onClick={this.handleSendAllData}
+            >
+              Завершить
+            </Button>
+          </div>
         </Row>
       </Container>
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   medSystems: state.medSystems.medSystems,
@@ -105,7 +201,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onGetMedSystems: () => dispatch(getMedSystems()),
   onGetMedQuestions: () => dispatch(getMedQuestions()),
-  onTestMedQuestions: () => dispatch(testMedQuestions())
+  onTestMedQuestions: data => dispatch(testMedQuestions(data))
 });
 
 export default connect(

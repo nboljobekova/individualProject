@@ -46,6 +46,20 @@ export const addMedQuestions = (payload) => {
   }
 }
 
+export const deleteMedQuestions = (payload) => {
+  console.log(payload)
+  return (dispatch) => {
+    return axios.delete("http://localhost:3000/medQuestions/" + payload)
+      .then((response) => {
+        // console.log(response)
+        dispatch({type: DELETE_MEDQUESTIONS_SUCCESS, payload: payload })
+      })
+      .catch((error) => {
+        dispatch({type: DELETE_MEDQUESTIONS_FAIL, payload: error})
+      })
+  }
+}
+
 export const saveMedQuestions = (payload) => {
   // console.log(payload)
   return (dispatch) => {
@@ -68,24 +82,27 @@ export const saveMedQuestions = (payload) => {
   }
 }
 
-export const deleteMedQuestions = (payload) => {
-  console.log(payload)
-  return (dispatch) => {
-    return axios.delete("http://localhost:3000/medQuestions/" + payload)
-      .then((response) => {
-        // console.log(response)
-        dispatch({type: DELETE_MEDQUESTIONS_SUCCESS, payload: payload })
-      })
-      .catch((error) => {
-        dispatch({type: DELETE_MEDQUESTIONS_FAIL, payload: error})
-      })
-  }
-}
+// export const addMedQuestions = (payload) => {
+//   return (dispatch) => {
+//     return axios.post("http://localhost:3000/medQuestions/", payload)
+//       .then((response) => {
+//         payload.id = response.data.id;
+//         dispatch({type: ADD_MEDQUESTIONS_SUCCESS, payload: payload})//the new item is returned with an ID
+//         return true
+//       })
+//       .catch((error) => {
+//         dispatch({type: ADD_MEDQUESTIONS_FAIL, payload: error})
+//         return false
+//       })
+//   }
+// }
 
 export const testMedQuestions = (payload) => {
+  console.log(payload)
   return (dispatch) => {
-    return axios.put("http://localhost:3000/medQuestions/", payload.data)
+    return axios.post("http://localhost:3000/test/", payload)
       .then((response) => {
+        // payload.id = response.data.id;
         dispatch({type: TEST_MEDQUESTIONS_SUCCESS, payload: response.data})//the new item is returned with an ID
         return true
       })
