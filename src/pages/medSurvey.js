@@ -22,16 +22,15 @@ class MedSurvey extends Component {
     super(props);
     this.state = {
       results: [],
-      counter: {},
       firstName: "",
       lastName: "",
-      email: ""
+      email: "",
+      current: 1
     };
     this.handleGetAnswers = this.handleGetAnswers.bind(this);
     this.handleCalculateSystems = this.handleCalculateSystems.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSendAllData = this.handleSendAllData.bind(this);
-    
   }
 
   componentDidMount() {
@@ -41,43 +40,63 @@ class MedSurvey extends Component {
 
   handleGetAnswers = async e => {
     // e.preventDefault();
-    console.log(e)
+    console.log(e);
     let results = [...this.state.results];
     if (results.includes(e.id)) {
       results.splice(results.findIndex(id => e.id === id), 1);
     } else {
-      results.push(e.id, e.relatedSystem);
+      results.push(e.id);
+      //   results.push({"id": e.id, "system": e.relatedSystem});
     }
     this.setState({ results });
 
-    this.handleCalculateSystems()
+    this.handleCalculateSystems();
   };
 
-  handleCalculateSystems= async e => {
+  handleCalculateSystems = async e => {
     // e.preventDefault();
     let results = [...this.state.results];
     let counter = { ...this.state.counter };
     // console.log(results.relatedSystem)
-    results.forEach(r => {
-        console.log(r.relatedSystem)
-    })
+    // results.forEach(r => {
+    //     console.log(r.relatedSystem)
+    // })
     // results.forEach(r => {
     //     r.relatedSystem.forEach(s => {
     //         counter[s] ? counter[s]++ : counter[s]=1
     //     })
     // })
     // this.setState({counter})
-  }
+  };
 
   handleSendAllData = async e => {
     e.preventDefault();
-    let results = [...this.state.results];
-    let counter = { ...this.state.counter };
+    let counter = {};
+    this.state.results.forEach(id => {
+      this.props.medQuestions[
+        this.props.medQuestions.findIndex(q => q.id === id)
+      ].relatedSystem.forEach(s => {
+        counter[s] ? counter[s]++ : (counter[s] = 1);
+      });
+      console.log(counter);
+    });
+
+    const systems = Object.keys(counter).map(key => {
+      const index = this.props.medSystems.findIndex(
+        q => q.id.toString() === key.toString()
+      );
+      return {
+        ...this.props.medSystems[index],
+        value: counter[key]
+      };
+    });
+    console.log(systems);
+
     const dataToSend = {
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
-      answers: results
+      answers: this.state.results
     };
     console.log(dataToSend);
     await this.props.onTestMedQuestions(dataToSend).then(success => {
@@ -85,19 +104,21 @@ class MedSurvey extends Component {
         console.log("success");
       }
     });
-
-    console.log(results);
   };
 
   handleChange = e => {
-      console.log(e.target.name)
+    console.log(e.target.name);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  handlerCurrentPage = e => {
+    console.log(e);
+  };
+
   render() {
-    console.log(this.state);
+    console.log(this.state.results);
     return (
       <Container className="mt-3">
         <Row className="welcome_main-block mt-5 mx-auto">
@@ -115,7 +136,11 @@ class MedSurvey extends Component {
           <List
             itemLayout="horizontal"
             dataSource={this.props.medQuestions}
-            pagination="true"
+            pagination={{
+              pageSize: 5,
+              current: this.state.current,
+              onChange: nextPage => this.setState({ current: nextPage })
+            }}
             size="large"
             renderItem={item => (
               <List.Item>

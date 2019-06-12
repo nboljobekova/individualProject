@@ -17,6 +17,7 @@ export const getMedSystems = () => {
     dispatch (getMedSystemsStart)
     axios.get("http://localhost:3000/medSystems")
       .then((response) => {
+        console.log('--->', response.data)
         // console.log(response)
         dispatch({ type: GET_MEDSYSTEMS_SUCCESS, payload: response.data })
       })
@@ -25,7 +26,7 @@ export const getMedSystems = () => {
         dispatch({ type: GET_MEDSYSTEMS_FAIL, payload: error })
       })
   }
-} 
+}  
 
 export const addMedSystem = (payload) => {
   return (dispatch) => {
