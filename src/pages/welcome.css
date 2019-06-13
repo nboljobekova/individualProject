@@ -1,7 +1,37 @@
+.welcome {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height: 100vh;
+    padding-bottom: 25em; 
+}
+
+.welcome:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(../img/leaves.jpg);
+    margin-left: -15px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+    overflow: hidden;
+}
+
 .welcome_main-block {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+ 
+.welcome_btn {
+    width: 15em;
+    margin: 0 auto;
 }
 

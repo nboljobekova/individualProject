@@ -32,3 +32,17 @@
     border-left: 1px solid grey;
 }
 
+.to_home {
+    padding: 0.5em 1em;
+    background-color: green;
+    color: white;
+    margin-bottom: 0.5em;
+    float: right; 
+    text-align: center;
+    text-decoration: none;
+}
+
+.to_home:hover {
+    text-decoration: none;
+    color: white;
+}

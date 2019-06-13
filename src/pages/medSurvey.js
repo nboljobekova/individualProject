@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Progress, Button } from "reactstrap";
+import { Container, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { List, Form, Input } from "antd";
@@ -30,11 +30,8 @@ class MedSurvey extends Component {
       current: 1,
       survey: true,
       form: false,
-      // disabled: true
+      report: false
     };
-    this.handleGetAnswers = this.handleGetAnswers.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSendAllData = this.handleSendAllData.bind(this);
   }
 
   componentDidMount() {
@@ -97,6 +94,7 @@ class MedSurvey extends Component {
         console.log("success");
       }
     });
+    this.handleOpenReport()
   };
 
   handleChange = e => {
@@ -122,6 +120,15 @@ class MedSurvey extends Component {
     })
   };
 
+  handleOpenReport = e => {
+    // e.preventDefault();
+    this.setState({
+        survey: false,
+        form: false,
+        report: true,
+    })
+  };
+
   render() {
     // console.log(this.state.results);
     console.log(this.state.systems);
@@ -129,18 +136,12 @@ class MedSurvey extends Component {
       <Container className="mt-3">
         <Row className="welcome_main-block mt-5 mx-auto">
           {this.state.survey ? (
-            <div isOpen={this.state.survey}>
-              <Progress multi className="mb-5">
-                <Progress animated bar value="20" />
-                <Progress animated bar color="success" value="20" />
-                <Progress animated bar color="warning" value="20" />
-                <Progress animated bar color="danger" value="20" />
-                <Progress animated bar color="info" value="20" />
-              </Progress>
+            <div isOpen={this.state.survey}>  
               <h2 className="mb-5">
                 Пожалуйста, отметьте галочкой, если ответ положительный
               </h2>
               <List
+                className="list"
                 itemLayout="horizontal"
                 dataSource={this.props.medQuestions}
                 pagination={{
@@ -148,10 +149,10 @@ class MedSurvey extends Component {
                   current: this.state.current,
                   onChange: nextPage => this.setState({ current: nextPage })
                 }}
-                size="large"
+                // size="large"
                 renderItem={item => (
                   <List.Item>
-                    <List.Item.Meta title={item.name} />
+                    <List.Item.Meta className="list_title" title={item.name} />
                     <FontAwesomeIcon
                       icon={
                         this.state.results.includes(item.id)
@@ -177,7 +178,7 @@ class MedSurvey extends Component {
                 Завершить
               </Button>
             </div>)
-            :
+            : this.state.form ?  
             (<div className="form" isOpen={this.state.form}>
               <h3 className="mb-5">
                 Пожалуйста, введите ваши данные в форму ниже
@@ -225,8 +226,11 @@ class MedSurvey extends Component {
                 Посмотреть результаты
               </Button>
             </div>
+          ) 
+          :
+          (<Report history={this.props.history} state={this.state} isOpen={this.state.report} />  
           )}
-          <Report state={this.state} />
+
         </Row>
       </Container>
     );

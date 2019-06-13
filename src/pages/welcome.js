@@ -120,15 +120,15 @@ class Welcome extends Component {
 
     render(){
         return (
-            <Container className="mt-3">
-                <Row className="d-flex justify-content-end">
-                    <Button color="success" className="mr-2" onClick={this.openLogModal}>Вход</Button>
-                    <Button color="success" onClick={this.openRegModal}>Регистрация</Button>
+            <Container fluid className="welcome fluid">
+                <Row className="d-flex justify-content-start">
+                    <Button color="success" className="mt-2 ml-3" onClick={this.openLogModal}>Вход</Button>
+                    <Button color="success" className="mt-2 ml-2" onClick={this.openRegModal}>Регистрация</Button>
                 </Row>
                 <Row className="welcome_main-block mt-5 mx-auto">
                     <h1 className="mt-5">Добро пожаловать!</h1>
-                    <h2 className="mt-5 mb-5">Пожалуйста, выберите тип опроса</h2>
-                    <Button outline color="success mb-3" block onClick={this.medSurveyRedirect}>Медицинский опрос</Button>
+                    <h2 className="m-5 15">Пройдите тест и узнайте, как Ваш образ жизни влияет на здоровье</h2>
+                    <Button className="welcome_btn" outline color="success" onClick={this.medSurveyRedirect}>Пройти тест</Button>
                 </Row>
                 <Modal
                     isOpen={this.state.logModal}

@@ -4,9 +4,18 @@
 }
 .form {
     width: 60%;
-    margin: 8em auto;
+    margin: 3em auto;
 }
 
 .toResult {
     width: 50%;
+}
+
+.list_title {
+    font-size: 2em;
+    line-height: 0.5em;
+}
+
+.to_home {
+    width: 8em;
 }

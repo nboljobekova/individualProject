@@ -128,6 +128,14 @@ class AdminMedQuestions extends Component {
   };
 
   render() {
+
+    const systems = arr => {
+      return arr.map(q => {
+        console.log(q)
+        return this.props.medSystems[this.props.medSystems.findIndex(s => s.id.toString() === q.id.toString()).name];
+      })
+    }
+
     const columns = [
       {
         title: "№",
@@ -145,14 +153,22 @@ class AdminMedQuestions extends Component {
         dataIndex: "relatedSystem",
         key: "relatedSystem",
         render: system_strs => {
-          if (Array.isArray(system_strs)) {
-            return system_strs.join(", ");
-          }}
-        
-        // system_ids => {
-        //   system_ids.forEach(id => {
-        //   this.props.medSystems[this.props.medSystems.findIndex(s => s.id === id)].name.join(", ")})
-        // }
+              if (Array.isArray(system_strs)) {
+                return system_strs.join(", ");
+              }
+            }
+
+
+      //   render: system_strs => {
+      //     if (Array.isArray(system_strs)) {
+      //       return system_strs.map(id => {
+      //         const item = this.props.medSystems[this.props.medSystems.findIndex(s => s.id.toString() === id.toString())];
+      //         return JSON.stringify(item)
+      //       }).join(", ");
+      //     }
+      //   }
+      // }
+
       },
       {
         title: "Действия",
