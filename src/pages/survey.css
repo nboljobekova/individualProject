@@ -4,5 +4,9 @@
 }
 .form {
     width: 60%;
-    margin: 0 auto;
+    margin: 8em auto;
+}
+
+.toResult {
+    width: 50%;
 }

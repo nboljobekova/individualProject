@@ -147,9 +147,12 @@ class AdminMedQuestions extends Component {
         render: system_strs => {
           if (Array.isArray(system_strs)) {
             return system_strs.join(", ");
-          }
-          return "-";
-        }
+          }}
+        
+        // system_ids => {
+        //   system_ids.forEach(id => {
+        //   this.props.medSystems[this.props.medSystems.findIndex(s => s.id === id)].name.join(", ")})
+        // }
       },
       {
         title: "Действия",
