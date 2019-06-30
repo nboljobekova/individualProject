@@ -14,8 +14,8 @@ const getMedSystemsStart = () => ({type: GET_MEDSYSTEMS_START});
 
 export const getMedSystems = () => {
   return (dispatch) => {
-    dispatch (getMedSystemsStart)
-    axios.get("http://localhost:3000/medSystems")
+    dispatch (getMedSystemsStart())
+    axios.get("/medSystems")
       .then((response) => {
         console.log('--->', response.data)
         // console.log(response)

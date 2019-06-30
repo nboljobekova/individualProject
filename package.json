@@ -8,15 +8,23 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "@trendmicro/react-modal": "^3.0.0",
+    "@types/express": "^4.17.0",
     "antd": "^3.19.1",
     "ants": "0.0.3-alpha",
     "axios": "^0.19.0",
-    "babel-loader": "^8.0.5",
+    "bcrypt": "^3.0.6",
     "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
     "eslint": "^5.16.0",
+    "express": "^4.17.1",
     "history": "^4.9.0",
     "json-server": "^0.15.0",
     "moment": "^2.24.0",
+    "mongodb": "^3.2.7",
+    "mongoose": "^5.6.0",
+    "nanoid": "^2.0.3",
+    "nodemon": "^1.19.1",
+
     "prettier": "^1.18.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -31,15 +39,16 @@
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "webpack": "^4.29.6"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fakeDB": "json-server --watch db.json"
+    "fakeDB": "json-server --watch db.json",
+    "dev": "nodemon server.js",
+    "seed": "nodemon fixtures.js"
   },
   "eslintConfig": {
     "extends": "react-app"
