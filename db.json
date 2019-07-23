@@ -89,6 +89,35 @@
       "date": "2019-06-17T04:29:29.633Z",
       "role": "Admin",
       "id": 10
+    },
+    {
+      "firstName": "Nurzat",
+      "lastName": "Boljobekova",
+      "email": "nurzat_kg@yahoo.com",
+      "password": "cPNCzJux6eWLRdn",
+      "date": "2019-07-16T15:43:54.629Z",
+      "role": "Admin",
+      "id": 11
+    },
+    {
+      "email": "nurzat_kg@yahoo.com",
+      "password": "cPNCzJux6eWLRdn",
+      "id": 12
+    },
+    {
+      "email": "nurzat_kg@yahoo.com",
+      "password": "cPNCzJux6eWLRdn",
+      "id": 13
+    },
+    {
+      "email": "nurzat_kg@yahoo.com",
+      "password": "cPNCzJux6eWLRdn",
+      "id": 14
+    },
+    {
+      "email": "nurzat_kg@yahoo.com",
+      "password": "cPNCzJux6eWLRdn",
+      "id": 15
     }
   ],
   "medQuestions": [
@@ -530,27 +559,6 @@
         10
       ],
       "name": "Беспокоят ли вас большие поры на коже, повышенное салоотделение, угри?"
-    },
-    {
-      "name": "Есть ли головокружение?",
-      "relatedSystem": [
-        "Система переваривания и усвоения пищи",
-        "Сердечно-сосудистая система",
-        "Иммунная система",
-        "Мочевыводящая система",
-        "Нервная система"
-      ],
-      "id": 50
-    },
-    {
-      "name": "Есть ли головокружение?",
-      "relatedSystem": [
-        "Желудочно-кишечный тракт",
-        "Нервная система",
-        "Дыхательная система",
-        "Иммунная система"
-      ],
-      "id": 51
     }
   ],
   "medSystems": [
@@ -607,26 +615,6 @@
     {
       "name": "Ноги",
       "id": 11
-    },
-    {
-      "name": "Голова",
-      "id": 12
-    },
-    {
-      "name": "Живот",
-      "id": 13
-    },
-    {
-      "name": "Спина",
-      "id": 15
-    },
-    {
-      "name": "бок",
-      "id": 16
-    },
-    {
-      "name": "Руки",
-      "id": 17
     }
   ],
   "test": [
@@ -1585,6 +1573,25 @@
       ],
       "systems": [],
       "id": 88
+    },
+    {
+      "firstName": "Nurzat",
+      "lastName": "Boljobekova",
+      "email": "nboljobekova@gmail.com",
+      "questions": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        45,
+        46,
+        48,
+        51
+      ],
+      "systems": [],
+      "id": 89
     }
   ]
 }

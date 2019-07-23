@@ -39,13 +39,6 @@ class AdminMedQuestions extends Component {
       currentId: null,
       editing: false,
     };
-    this.openAddMedQuestionModal = this.openAddMedQuestionModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAddMedQuestionModalSubmit = this.handleAddMedQuestionModalSubmit.bind(
-      this
-    );
-    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   componentDidMount() {
@@ -97,30 +90,6 @@ class AdminMedQuestions extends Component {
     });
   };
 
-  changeMedQuestion(e) {
-    this.setState({
-      newMedQuestion: {
-        name: e.target.value,
-        relatedSystem: this.state.newMedQuestion.name
-      }
-    });
-  }
-
-  saveMedQuestions() {
-    this.props.dispatch(
-      saveMedQuestions({
-        id: this.state.currentId,
-        name: this.state.newMedQuestion
-      })
-    );
-    this.setState({ editing: false, newMedQuestion: { name: "" } });
-  }
-
-  handleSaveMedSystems(e) {
-    console.log(e);
-    this.setState(this.props.medQuestions, { id: e.id, name: e.name });
-  }
-
   handleDeleteMedQuestions = async e => {
     console.log(this.props);
     await this.props.onDeleteMedQuestions(e.id);
@@ -128,13 +97,6 @@ class AdminMedQuestions extends Component {
   };
 
   render() {
-
-    const systems = arr => {
-      return arr.map(q => {
-        console.log(q)
-        return this.props.medSystems[this.props.medSystems.findIndex(s => s.id.toString() === q.id.toString()).name];
-      })
-    }
 
     const columns = [
       {
@@ -152,22 +114,25 @@ class AdminMedQuestions extends Component {
         title: "Соответствующие системы",
         dataIndex: "relatedSystem",
         key: "relatedSystem",
-        render: system_strs => {
-              if (Array.isArray(system_strs)) {
-                return system_strs.join(", ");
-              }
+        render: 
+          systems =>{
+                let system_name=[];
+                for(let i=0; i<systems.length;i++){
+                  for(let y=0; y < this.props.medSystems.length; y++){
+                    if(systems[i]===this.props.medSystems[y].id){
+                      system_name.push(this.props.medSystems[y].name)
+                      // console.log(system_name)
+                    }
+                  }
+                }
+              return (system_name.join(", "))
             }
 
-
-      //   render: system_strs => {
-      //     if (Array.isArray(system_strs)) {
-      //       return system_strs.map(id => {
-      //         const item = this.props.medSystems[this.props.medSystems.findIndex(s => s.id.toString() === id.toString())];
-      //         return JSON.stringify(item)
-      //       }).join(", ");
-      //     }
-      //   }
-      // }
+        // render: system_strs => {
+        //       if (Array.isArray(system_strs)) {
+        //         return system_strs.join(", ");
+        //       }
+        //     }
 
       },
       {
@@ -175,23 +140,13 @@ class AdminMedQuestions extends Component {
         key: "action",
         width: "10%",
         render: (text, id) => (
-          // <Fragment>
-            // {/* <FontAwesomeIcon
-            //   icon={faEdit}
-            //   style={{ cursor: "pointer" }}
-            //   color="orange"
-            //   size="lg"
-            //   className="mr-3"
-            //   onClick={() => this.handleSaveMedQuestions()}
-            // /> */}
-            <FontAwesomeIcon
-              icon={faTrash}
-              style={{ cursor: "pointer" }}
-              color="red"
-              size="lg"
-              onClick={() => this.handleDeleteMedQuestions(id)}
-            />
-          // </Fragment>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ cursor: "pointer" }}
+            color="red"
+            size="lg"
+            onClick={() => this.handleDeleteMedQuestions(id)}
+          />
         )
       }
     ];

@@ -15,7 +15,7 @@ const getMedSystemsStart = () => ({type: GET_MEDSYSTEMS_START});
 export const getMedSystems = () => {
   return (dispatch) => {
     dispatch (getMedSystemsStart())
-    axios.get("/medSystems")
+    axios.get("http://localhost:3000/medSystems")
       .then((response) => {
         console.log('--->', response.data)
         // console.log(response)
@@ -70,16 +70,7 @@ export const deleteMedSystem = (payload) => {
     return axios.delete("http://localhost:3000/medSystems/" + payload)
       .then((response) => {
         console.log(response)
-
         dispatch({type: DELETE_MEDSYSTEM_SUCCESS, payload: payload })
-
-        /*axios.get("http://localhost:3000/medSystems")
-          .then((response) => {
-            dispatch({type: GET_MEDSYSTEMS_SUCCESS, payload: response.data })
-          })
-          .catch((error) => {
-            dispatch({type: GET_MEDSYSTEMS_FAIL, payload: error})
-          })*/
       })
       .catch((error) => {
         dispatch({type: DELETE_MEDSYSTEM_FAIL, payload: error})

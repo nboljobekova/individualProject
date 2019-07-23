@@ -52,5 +52,3 @@ export const MedSystemsReducer = (state = {
         return state
     }
   }
-  
-// export default MedSystemsReducer;

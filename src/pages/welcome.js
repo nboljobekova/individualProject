@@ -86,16 +86,6 @@ class Welcome extends Component {
                     this.loginRedirect()
                 }
             })
-
-            // const formData = new FormData();
-            // Object.keys(innerState).forEach(key => {
-            //     if (innerState[key]) formData.append(key, innerState[key]);
-            // });
-            // fetch('/api/form-submit-url', {
-            //     method: 'POST',
-            //     body: formData,
-            // });
-            // console.log(this.state);
         }
 
         handleRegistrationSubmit(e) {

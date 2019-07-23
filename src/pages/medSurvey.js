@@ -47,7 +47,6 @@ class MedSurvey extends Component {
       results.splice(results.findIndex(id => e.id === id), 1);
     } else {
       results.push(e.id);
-      //   results.push({"id": e.id, "system": e.relatedSystem});
     }
     this.setState({ results });
 
@@ -58,7 +57,7 @@ class MedSurvey extends Component {
     e.preventDefault();
     let counter = {};
     let system = {};
-    let systems = [...this.state.systems]
+    // let systems = [...this.state.systems]
     this.state.results.forEach(id => {
       this.props.medQuestions[
         this.props.medQuestions.findIndex(q => q.id === id)
@@ -77,7 +76,6 @@ class MedSurvey extends Component {
         value: counter[key]
       };
     });
-    // systems.push(system)
     this.setState({systems: system})
 
 
@@ -130,7 +128,6 @@ class MedSurvey extends Component {
   };
 
   render() {
-    // console.log(this.state.results);
     console.log(this.state.systems);
     return (
       <Container className="mt-3">
@@ -149,7 +146,6 @@ class MedSurvey extends Component {
                   current: this.state.current,
                   onChange: nextPage => this.setState({ current: nextPage })
                 }}
-                // size="large"
                 renderItem={item => (
                   <List.Item>
                     <List.Item.Meta className="list_title" title={item.name} />

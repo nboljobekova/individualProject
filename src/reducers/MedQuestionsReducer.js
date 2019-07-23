@@ -6,7 +6,6 @@ import {
   SAVE_MEDQUESTIONS_SUCCESS,
   DELETE_MEDQUESTIONS_SUCCESS,
   TEST_MEDQUESTIONS_SUCCESS
-  // ADD_MEDQUESTIONS_FAIL, SAVE_MEDQUESTIONS_FAIL, DELETE_MEDQUESTIONS_FAIL
 } from "../actions/MedQuestionsActions";
 
 export const MedQuestionsReducer = (
@@ -14,9 +13,7 @@ export const MedQuestionsReducer = (
     medQuestions: [],
     test: [],
     status: null,
-    error: null,
-    // answer: false,
-    // questionId: null,
+    error: null
   },
   action
 ) => {
@@ -72,16 +69,3 @@ export const MedQuestionsReducer = (
       return state;
   }
 };
-
-// export default MedQuestionsReducer;
-
-/**
- * {
- *  id: uuid,
- *  answer: false,
- *  question: 34
- * }
- * getQuestionById(34) -> {
- *  
- * }
- */ 

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import {
   Container,
   Row,
@@ -13,7 +13,7 @@ import {
 } from "reactstrap";
 import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Table } from "antd";
 import "antd/dist/antd.css";
 import "./admin.css";
@@ -35,17 +35,6 @@ class AdminMedSystems extends Component {
       editMedSystemModal: false,
       name: ""
     };
-    this.openAddMedSystemModal = this.openAddMedSystemModal.bind(this);
-    this.openEditMedSystemModal = this.openEditMedSystemModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleAddMedSystemModalSubmit = this.handleAddMedSystemModalSubmit.bind(
-      this
-    );
-    this.handleEditMedSystemModalSubmit = this.handleEditMedSystemModalSubmit.bind(
-      this
-    );
-    // this.handleUpdateMedSystem = this.handleUpdateMedSystem.bind(this);
   }
 
   componentDidMount() {
@@ -120,13 +109,6 @@ class AdminMedSystems extends Component {
     this.props.onGetMedSystems();
   };
 
-  // handleUpdateMedSystem = async (e) => {
-  //   console.log(e)
-  //   await this.setState({ currentId: e.id, editing: true, newMedSystem: { name: e.name } })
-  //   this.props.onSaveMedSystems(e.name)
-  //   this.props.onGetMedSystems()
-  // };
-
   render() {
     const columns = [
       {
@@ -145,23 +127,13 @@ class AdminMedSystems extends Component {
         key: "action",
         width: "10%",
         render: (text, id) => (
-          // <Fragment>
-          //   <FontAwesomeIcon
-          //     icon={faEdit}
-          //     style={{ cursor: "pointer" }}
-          //     color="orange"
-          //     size="lg"
-          //     className="mr-3"
-          //     onClick={e => this.openEditMedSystemModal(e)}
-          //   />
-            <FontAwesomeIcon
-              icon={faTrash}
-              style={{ cursor: "pointer" }}
-              color="red"
-              size="lg"
-              onClick={() => this.handleDeleteMedSystems(id)}
-            />
-          // </Fragment>
+          <FontAwesomeIcon
+            icon={faTrash}
+            style={{ cursor: "pointer" }}
+            color="red"
+            size="lg"
+            onClick={() => this.handleDeleteMedSystems(id)}
+          />
         )
       }
     ];
@@ -207,33 +179,6 @@ class AdminMedSystems extends Component {
             </ModalFooter>
           </Form>
         </Modal>
-        if(editable)
-        {
-          <Modal isOpen={this.state.editMedSystemModal}>
-            <ModalHeader>Изменение медицинской системы</ModalHeader>
-            <Form onSubmit={this.handleEditMedSystemModalSubmit}>
-              <ModalBody>
-                <FormGroup>
-                  <Input
-                    type="name"
-                    name="name"
-                    defaultValue={this.state.name}
-                    onChange={this.handleChange}
-                    placeholder="Введите название другой медицинской системы"
-                  />
-                </FormGroup>
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary" type="submit">
-                  Изменить
-                </Button>{" "}
-                <Button color="secondary" onClick={this.closeModal}>
-                  Отмена
-                </Button>
-              </ModalFooter>
-            </Form>
-          </Modal>
-        }
       </Container>
     );
   }

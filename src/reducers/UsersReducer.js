@@ -1,6 +1,5 @@
 import {
-  GET_USERS_START, GET_USERS_SUCCESS, GET_USERS_FAIL, ADD_USERS_SUCCESS, SAVE_USERS_SUCCESS, DELETE_USERS_SUCCESS, 
-  // ADD_USERS_FAIL, SAVE_USERS_FAIL, DELETE_USERS_FAIL
+  GET_USERS_START, GET_USERS_SUCCESS, GET_USERS_FAIL, ADD_USERS_SUCCESS, SAVE_USERS_SUCCESS, DELETE_USERS_SUCCESS
   } from "../actions/UsersActions"
   
   export const UsersReducer = (state = {
@@ -51,5 +50,3 @@ import {
         return state
     }
   }
-  
-  // export default UsersReducer;

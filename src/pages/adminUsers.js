@@ -43,7 +43,6 @@ class AdminUsers extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAddUserSubmit = this.handleAddUserSubmit.bind(this);
-    // this.handleUpdateUsers = this.handleUpdateUsers.bind(this);
   }
 
   componentDidMount() {
@@ -92,13 +91,6 @@ class AdminUsers extends Component {
     });
   }
 
-  // handleUpdateUsers = async (e) => {
-  //   console.log(e)
-  //   await this.setState({ currentId: e.id, editing: true, newMedSystem: { name: e.name } })
-  //   this.props.onSaveUsers(e.name)
-  //   this.props.onGetUsers()
-  // };
-
   handleDeleteUsers = async e => {
     console.log(this.props);
     await this.props.onDeleteUsers(e.id);
@@ -138,7 +130,7 @@ class AdminUsers extends Component {
         dataIndex: "date",
         key: "date",
         render: (date, id) => {
-          console.log(date);
+          // console.log(date);
           return <DatePrettify>{date}</DatePrettify>;
         }
       },
@@ -152,24 +144,14 @@ class AdminUsers extends Component {
         key: "action",
         width: "10%",
         render: (text, id) => (
-          // <span className="icon">
-            //  {/* <FontAwesomeIcon
-            //   icon={faEdit}
-            //   style={{ cursor: "pointer" }}
-            //   color="orange"
-            //   size="lg"
-            //   className="mr-3"
-            //   onClick={() => this.handleUpdateUsers(id)}
-            // /> */}
-            <FontAwesomeIcon
-              icon={faTrash}
-              className="icon"
-              style={{ cursor: "pointer", textAlign: "center", margin: "0 auto" }}
-              color="red"
-              size="lg"
-              onClick={() => this.handleDeleteUsers(id)}
-            />
-          // </span>
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="icon"
+            style={{ cursor: "pointer", textAlign: "center", margin: "0 auto" }}
+            color="red"
+            size="lg"
+            onClick={() => this.handleDeleteUsers(id)}
+          />
         )
       }
     ];
@@ -195,7 +177,6 @@ class AdminUsers extends Component {
             columns={columns}
             dataSource={this.props.users}
           />
-          {/* <EditUserModal /> */}
         </Row>
         <Modal isOpen={this.state.addUserModal}>
           <ModalHeader>Добавление пользователя</ModalHeader>

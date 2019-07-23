@@ -1,19 +1,14 @@
 import React, { Component } from "react";
-import { Navbar, Button } from "reactstrap";
+import { Navbar } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 class Header extends Component {
-  
-  returnRedirect = e => {
-    // e.preventDefault;
-    this.props.history.push("/");
-  };
 
   render() {
     return (
       <div>
-        <NavLink className="to_home" to="/" onClick={this.returnRedirect}>
+        <NavLink className="to_home" to="/">
           Log out
         </NavLink>
         <Navbar expand="md" className="nav navbar-dark p-0">
